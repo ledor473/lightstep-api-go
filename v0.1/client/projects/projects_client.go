@@ -27,33 +27,33 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetProjectID(params *GetProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectIDOK, error)
+	GetProject(params *GetProjectParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectOK, error)
 
-	ListProjectsID(params *ListProjectsIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListProjectsIDOK, error)
+	ListProjects(params *ListProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*ListProjectsOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  GetProjectID gets project
+  GetProject gets project
 
   Returns information about a specific project
 */
-func (a *Client) GetProjectID(params *GetProjectIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectIDOK, error) {
+func (a *Client) GetProject(params *GetProjectParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetProjectIDParams()
+		params = NewGetProjectParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getProjectID",
+		ID:                 "getProject",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetProjectIDReader{formats: a.formats},
+		Reader:             &GetProjectReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -61,36 +61,36 @@ func (a *Client) GetProjectID(params *GetProjectIDParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetProjectIDOK)
+	success, ok := result.(*GetProjectOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getProjectID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for getProject: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  ListProjectsID lists projects
+  ListProjects lists projects
 
   Returns information about all projects in an organization
 */
-func (a *Client) ListProjectsID(params *ListProjectsIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListProjectsIDOK, error) {
+func (a *Client) ListProjects(params *ListProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*ListProjectsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewListProjectsIDParams()
+		params = NewListProjectsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "listProjectsID",
+		ID:                 "listProjects",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &ListProjectsIDReader{formats: a.formats},
+		Reader:             &ListProjectsReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -98,13 +98,13 @@ func (a *Client) ListProjectsID(params *ListProjectsIDParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ListProjectsIDOK)
+	success, ok := result.(*ListProjectsOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for listProjectsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for listProjects: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

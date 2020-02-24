@@ -27,41 +27,41 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteStreamID(params *DeleteStreamIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteStreamIDNoContent, error)
+	DeleteStream(params *DeleteStreamParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteStreamNoContent, error)
 
-	GetStreamID(params *GetStreamIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetStreamIDOK, error)
+	GetStream(params *GetStreamParams, authInfo runtime.ClientAuthInfoWriter) (*GetStreamOK, error)
 
-	ListStreamsID(params *ListStreamsIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListStreamsIDOK, error)
+	ListStreams(params *ListStreamsParams, authInfo runtime.ClientAuthInfoWriter) (*ListStreamsOK, error)
 
-	PatchStreamID(params *PatchStreamIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchStreamIDOK, error)
+	PatchStream(params *PatchStreamParams, authInfo runtime.ClientAuthInfoWriter) (*PatchStreamOK, error)
 
-	PostStreamID(params *PostStreamIDParams, authInfo runtime.ClientAuthInfoWriter) (*PostStreamIDOK, error)
+	PostStream(params *PostStreamParams, authInfo runtime.ClientAuthInfoWriter) (*PostStreamOK, error)
 
-	TimeseriesID(params *TimeseriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*TimeseriesIDOK, error)
+	Timeseries(params *TimeseriesParams, authInfo runtime.ClientAuthInfoWriter) (*TimeseriesOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  DeleteStreamID deletes stream
+  DeleteStream deletes stream
 
   Deletes an existing stream. Deleting a stream also deletes all historical data persisted for that stream and cannot be undone, so be sure you want to delete it.
 */
-func (a *Client) DeleteStreamID(params *DeleteStreamIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteStreamIDNoContent, error) {
+func (a *Client) DeleteStream(params *DeleteStreamParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteStreamNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteStreamIDParams()
+		params = NewDeleteStreamParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "deleteStreamID",
+		ID:                 "deleteStream",
 		Method:             "DELETE",
 		PathPattern:        "/{organization}/projects/{project}/streams/{stream-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &DeleteStreamIDReader{formats: a.formats},
+		Reader:             &DeleteStreamReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -69,36 +69,36 @@ func (a *Client) DeleteStreamID(params *DeleteStreamIDParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteStreamIDNoContent)
+	success, ok := result.(*DeleteStreamNoContent)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for deleteStreamID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for deleteStream: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  GetStreamID gets stream
+  GetStream gets stream
 
   Returns information about a specific stream
 */
-func (a *Client) GetStreamID(params *GetStreamIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetStreamIDOK, error) {
+func (a *Client) GetStream(params *GetStreamParams, authInfo runtime.ClientAuthInfoWriter) (*GetStreamOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetStreamIDParams()
+		params = NewGetStreamParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getStreamID",
+		ID:                 "getStream",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/streams/{stream-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetStreamIDReader{formats: a.formats},
+		Reader:             &GetStreamReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -106,36 +106,36 @@ func (a *Client) GetStreamID(params *GetStreamIDParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetStreamIDOK)
+	success, ok := result.(*GetStreamOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getStreamID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for getStream: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  ListStreamsID lists streams
+  ListStreams lists streams
 
   Returns information about all streams in a project
 */
-func (a *Client) ListStreamsID(params *ListStreamsIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListStreamsIDOK, error) {
+func (a *Client) ListStreams(params *ListStreamsParams, authInfo runtime.ClientAuthInfoWriter) (*ListStreamsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewListStreamsIDParams()
+		params = NewListStreamsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "listStreamsID",
+		ID:                 "listStreams",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/streams",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &ListStreamsIDReader{formats: a.formats},
+		Reader:             &ListStreamsReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -143,36 +143,36 @@ func (a *Client) ListStreamsID(params *ListStreamsIDParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ListStreamsIDOK)
+	success, ok := result.(*ListStreamsOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for listStreamsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for listStreams: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  PatchStreamID updates stream
+  PatchStream updates stream
 
   Modifies the settings for an existing stream, to provide more descriptive info about it. A clientID must be supplied. By default, streams are given the query parameters as the name and cannot be updated using the query field (results in a error).
 */
-func (a *Client) PatchStreamID(params *PatchStreamIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchStreamIDOK, error) {
+func (a *Client) PatchStream(params *PatchStreamParams, authInfo runtime.ClientAuthInfoWriter) (*PatchStreamOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPatchStreamIDParams()
+		params = NewPatchStreamParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "patchStreamID",
+		ID:                 "patchStream",
 		Method:             "PATCH",
 		PathPattern:        "/{organization}/projects/{project}/streams/{stream-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &PatchStreamIDReader{formats: a.formats},
+		Reader:             &PatchStreamReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -180,36 +180,36 @@ func (a *Client) PatchStreamID(params *PatchStreamIDParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PatchStreamIDOK)
+	success, ok := result.(*PatchStreamOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for patchStreamID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for patchStream: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  PostStreamID creates stream
+  PostStream creates stream
 
   Creates a new stream (or updates an existing stream if the query is identical). You do not need to include a clientID.
 */
-func (a *Client) PostStreamID(params *PostStreamIDParams, authInfo runtime.ClientAuthInfoWriter) (*PostStreamIDOK, error) {
+func (a *Client) PostStream(params *PostStreamParams, authInfo runtime.ClientAuthInfoWriter) (*PostStreamOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPostStreamIDParams()
+		params = NewPostStreamParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "postStreamID",
+		ID:                 "postStream",
 		Method:             "POST",
 		PathPattern:        "/{organization}/projects/{project}/streams",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &PostStreamIDReader{formats: a.formats},
+		Reader:             &PostStreamReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -217,36 +217,36 @@ func (a *Client) PostStreamID(params *PostStreamIDParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PostStreamIDOK)
+	success, ok := result.(*PostStreamOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for postStreamID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for postStream: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  TimeseriesID timeseries
+  Timeseries timeseries
 
   Returns timeseries data for a stream
 */
-func (a *Client) TimeseriesID(params *TimeseriesIDParams, authInfo runtime.ClientAuthInfoWriter) (*TimeseriesIDOK, error) {
+func (a *Client) Timeseries(params *TimeseriesParams, authInfo runtime.ClientAuthInfoWriter) (*TimeseriesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewTimeseriesIDParams()
+		params = NewTimeseriesParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "timeseriesID",
+		ID:                 "timeseries",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/streams/{stream-id}/timeseries",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &TimeseriesIDReader{formats: a.formats},
+		Reader:             &TimeseriesReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -254,13 +254,13 @@ func (a *Client) TimeseriesID(params *TimeseriesIDParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*TimeseriesIDOK)
+	success, ok := result.(*TimeseriesOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for timeseriesID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for timeseries: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

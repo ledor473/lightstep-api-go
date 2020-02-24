@@ -27,31 +27,31 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	StoredTracesID(params *StoredTracesIDParams, authInfo runtime.ClientAuthInfoWriter) (*StoredTracesIDOK, error)
+	StoredTraces(params *StoredTracesParams, authInfo runtime.ClientAuthInfoWriter) (*StoredTracesOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  StoredTracesID storeds traces
+  StoredTraces storeds traces
 
   Returns complete traces that have already been assembled and stored
 */
-func (a *Client) StoredTracesID(params *StoredTracesIDParams, authInfo runtime.ClientAuthInfoWriter) (*StoredTracesIDOK, error) {
+func (a *Client) StoredTraces(params *StoredTracesParams, authInfo runtime.ClientAuthInfoWriter) (*StoredTracesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewStoredTracesIDParams()
+		params = NewStoredTracesParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "storedTracesID",
+		ID:                 "storedTraces",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/stored-traces",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &StoredTracesIDReader{formats: a.formats},
+		Reader:             &StoredTracesReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -59,13 +59,13 @@ func (a *Client) StoredTracesID(params *StoredTracesIDParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*StoredTracesIDOK)
+	success, ok := result.(*StoredTracesOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for storedTracesID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for storedTraces: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

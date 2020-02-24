@@ -1,5 +1,5 @@
 # lightstep-api-go
-## Unofficial model for LightStep Public API
+## Unofficial client library for LightStep Public API
 
 Generated using [`go-swagger`](https://goswagger.io/)
 

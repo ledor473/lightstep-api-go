@@ -27,43 +27,43 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteConditionID(params *DeleteConditionIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConditionIDNoContent, error)
+	DeleteCondition(params *DeleteConditionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConditionNoContent, error)
 
-	GetConditionID(params *GetConditionIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetConditionIDOK, error)
+	GetCondition(params *GetConditionParams, authInfo runtime.ClientAuthInfoWriter) (*GetConditionOK, error)
 
-	GetConditionStatusID(params *GetConditionStatusIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetConditionStatusIDOK, error)
+	GetConditionStatus(params *GetConditionStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetConditionStatusOK, error)
 
-	ListConditionsForStreamID(params *ListConditionsForStreamIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListConditionsForStreamIDOK, error)
+	ListConditions(params *ListConditionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListConditionsOK, error)
 
-	ListConditionsID(params *ListConditionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListConditionsIDOK, error)
+	ListConditionsForStream(params *ListConditionsForStreamParams, authInfo runtime.ClientAuthInfoWriter) (*ListConditionsForStreamOK, error)
 
-	PatchConditionID(params *PatchConditionIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchConditionIDOK, error)
+	PatchCondition(params *PatchConditionParams, authInfo runtime.ClientAuthInfoWriter) (*PatchConditionOK, error)
 
-	PostConditionID(params *PostConditionIDParams, authInfo runtime.ClientAuthInfoWriter) (*PostConditionIDOK, error)
+	PostCondition(params *PostConditionParams, authInfo runtime.ClientAuthInfoWriter) (*PostConditionOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  DeleteConditionID deletes condition
+  DeleteCondition deletes condition
 
   Deletes an existing condition
 */
-func (a *Client) DeleteConditionID(params *DeleteConditionIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConditionIDNoContent, error) {
+func (a *Client) DeleteCondition(params *DeleteConditionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConditionNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteConditionIDParams()
+		params = NewDeleteConditionParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "deleteConditionID",
+		ID:                 "deleteCondition",
 		Method:             "DELETE",
 		PathPattern:        "/{organization}/projects/{project}/conditions/{condition-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &DeleteConditionIDReader{formats: a.formats},
+		Reader:             &DeleteConditionReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -71,36 +71,36 @@ func (a *Client) DeleteConditionID(params *DeleteConditionIDParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteConditionIDNoContent)
+	success, ok := result.(*DeleteConditionNoContent)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for deleteConditionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for deleteCondition: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  GetConditionID gets condition
+  GetCondition gets condition
 
   Returns information about a specific condition. Include the organization, project, and condition identifier in the path parameter.
 */
-func (a *Client) GetConditionID(params *GetConditionIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetConditionIDOK, error) {
+func (a *Client) GetCondition(params *GetConditionParams, authInfo runtime.ClientAuthInfoWriter) (*GetConditionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetConditionIDParams()
+		params = NewGetConditionParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getConditionID",
+		ID:                 "getCondition",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/conditions/{condition-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetConditionIDReader{formats: a.formats},
+		Reader:             &GetConditionReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -108,36 +108,36 @@ func (a *Client) GetConditionID(params *GetConditionIDParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetConditionIDOK)
+	success, ok := result.(*GetConditionOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getConditionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for getCondition: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  GetConditionStatusID gets condition status
+  GetConditionStatus gets condition status
 
   Returns status information about a specific condition
 */
-func (a *Client) GetConditionStatusID(params *GetConditionStatusIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetConditionStatusIDOK, error) {
+func (a *Client) GetConditionStatus(params *GetConditionStatusParams, authInfo runtime.ClientAuthInfoWriter) (*GetConditionStatusOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetConditionStatusIDParams()
+		params = NewGetConditionStatusParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getConditionStatusID",
+		ID:                 "getConditionStatus",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/conditions/{condition-id}/status",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetConditionStatusIDReader{formats: a.formats},
+		Reader:             &GetConditionStatusReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -145,36 +145,73 @@ func (a *Client) GetConditionStatusID(params *GetConditionStatusIDParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetConditionStatusIDOK)
+	success, ok := result.(*GetConditionStatusOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getConditionStatusID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for getConditionStatus: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  ListConditionsForStreamID lists conditions for stream
+  ListConditions lists conditions
 
-  Returns information about all conditions in a specific stream. You can create multiple conditions for a Stream. For example, you might create one condition for a "warning" threshold and another for a "critical" threshold. Or, you might want to have different thresholds for multiple percentiles (e.g., the 99th percentile can exceed 100ms, but your 50th percentile should never exceed 50ms).
+  Returns information about all conditions in a project
 */
-func (a *Client) ListConditionsForStreamID(params *ListConditionsForStreamIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListConditionsForStreamIDOK, error) {
+func (a *Client) ListConditions(params *ListConditionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListConditionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewListConditionsForStreamIDParams()
+		params = NewListConditionsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "listConditionsForStreamID",
+		ID:                 "listConditions",
+		Method:             "GET",
+		PathPattern:        "/{organization}/projects/{project}/conditions",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &ListConditionsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListConditionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for listConditions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ListConditionsForStream lists conditions for stream
+
+  Returns information about all conditions in a specific stream. You can create multiple conditions for a Stream. For example, you might create one condition for a "warning" threshold and another for a "critical" threshold. Or, you might want to have different thresholds for multiple percentiles (e.g., the 99th percentile can exceed 100ms, but your 50th percentile should never exceed 50ms).
+*/
+func (a *Client) ListConditionsForStream(params *ListConditionsForStreamParams, authInfo runtime.ClientAuthInfoWriter) (*ListConditionsForStreamOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListConditionsForStreamParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listConditionsForStream",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/streams/{stream-id}/conditions",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &ListConditionsForStreamIDReader{formats: a.formats},
+		Reader:             &ListConditionsForStreamReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -182,73 +219,36 @@ func (a *Client) ListConditionsForStreamID(params *ListConditionsForStreamIDPara
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ListConditionsForStreamIDOK)
+	success, ok := result.(*ListConditionsForStreamOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for listConditionsForStreamID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for listConditionsForStream: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  ListConditionsID lists conditions
-
-  Returns information about all conditions in a project
-*/
-func (a *Client) ListConditionsID(params *ListConditionsIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListConditionsIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewListConditionsIDParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "listConditionsID",
-		Method:             "GET",
-		PathPattern:        "/{organization}/projects/{project}/conditions",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
-		Params:             params,
-		Reader:             &ListConditionsIDReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*ListConditionsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for listConditionsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  PatchConditionID updates condition
+  PatchCondition updates condition
 
   Modifies the settings for an existing condition. You cannot modify the condition to refer to a different stream.
 */
-func (a *Client) PatchConditionID(params *PatchConditionIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchConditionIDOK, error) {
+func (a *Client) PatchCondition(params *PatchConditionParams, authInfo runtime.ClientAuthInfoWriter) (*PatchConditionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPatchConditionIDParams()
+		params = NewPatchConditionParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "patchConditionID",
+		ID:                 "patchCondition",
 		Method:             "PATCH",
 		PathPattern:        "/{organization}/projects/{project}/conditions/{condition-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &PatchConditionIDReader{formats: a.formats},
+		Reader:             &PatchConditionReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -256,36 +256,36 @@ func (a *Client) PatchConditionID(params *PatchConditionIDParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PatchConditionIDOK)
+	success, ok := result.(*PatchConditionOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for patchConditionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for patchCondition: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  PostConditionID creates condition
+  PostCondition creates condition
 
   Creates a new condition. You create conditions for thresholds that mark [SLAs or metrics](https://docs.lightstep.com/docs/create-alert-conditions-and-rules) on a Stream that you want to be warned about.
 */
-func (a *Client) PostConditionID(params *PostConditionIDParams, authInfo runtime.ClientAuthInfoWriter) (*PostConditionIDOK, error) {
+func (a *Client) PostCondition(params *PostConditionParams, authInfo runtime.ClientAuthInfoWriter) (*PostConditionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPostConditionIDParams()
+		params = NewPostConditionParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "postConditionID",
+		ID:                 "postCondition",
 		Method:             "POST",
 		PathPattern:        "/{organization}/projects/{project}/conditions",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &PostConditionIDReader{formats: a.formats},
+		Reader:             &PostConditionReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -293,13 +293,13 @@ func (a *Client) PostConditionID(params *PostConditionIDParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PostConditionIDOK)
+	success, ok := result.(*PostConditionOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for postConditionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for postCondition: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

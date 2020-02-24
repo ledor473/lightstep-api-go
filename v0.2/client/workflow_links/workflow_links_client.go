@@ -27,39 +27,39 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateWorkflowLinkID(params *CreateWorkflowLinkIDParams, authInfo runtime.ClientAuthInfoWriter) (*CreateWorkflowLinkIDOK, error)
+	CreateWorkflowLink(params *CreateWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*CreateWorkflowLinkOK, error)
 
-	DeleteWorkflowLinkID(params *DeleteWorkflowLinkIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteWorkflowLinkIDNoContent, error)
+	DeleteWorkflowLink(params *DeleteWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteWorkflowLinkNoContent, error)
 
-	GetWorkflowLinkID(params *GetWorkflowLinkIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetWorkflowLinkIDOK, error)
+	GetWorkflowLink(params *GetWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*GetWorkflowLinkOK, error)
 
-	ListWorkflowLinksID(params *ListWorkflowLinksIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListWorkflowLinksIDOK, error)
+	ListWorkflowLinks(params *ListWorkflowLinksParams, authInfo runtime.ClientAuthInfoWriter) (*ListWorkflowLinksOK, error)
 
-	PatchWorkflowLinkID(params *PatchWorkflowLinkIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchWorkflowLinkIDOK, error)
+	PatchWorkflowLink(params *PatchWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*PatchWorkflowLinkOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  CreateWorkflowLinkID creates workflow link
+  CreateWorkflowLink creates workflow link
 
   Creates a new workflow link. Links within a project must have a unique combination of Name and URL. Admin or Member privileges are required to create workflow links. Workflow name can also include [variables](https://docs.lightstep.com/docs/links-reference), allowing the link name to change dynamically based on the span being viewed.
 */
-func (a *Client) CreateWorkflowLinkID(params *CreateWorkflowLinkIDParams, authInfo runtime.ClientAuthInfoWriter) (*CreateWorkflowLinkIDOK, error) {
+func (a *Client) CreateWorkflowLink(params *CreateWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*CreateWorkflowLinkOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewCreateWorkflowLinkIDParams()
+		params = NewCreateWorkflowLinkParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "createWorkflowLinkID",
+		ID:                 "createWorkflowLink",
 		Method:             "POST",
 		PathPattern:        "/{organization}/projects/{project}/wf_links",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &CreateWorkflowLinkIDReader{formats: a.formats},
+		Reader:             &CreateWorkflowLinkReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -67,36 +67,36 @@ func (a *Client) CreateWorkflowLinkID(params *CreateWorkflowLinkIDParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateWorkflowLinkIDOK)
+	success, ok := result.(*CreateWorkflowLinkOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for createWorkflowLinkID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for createWorkflowLink: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  DeleteWorkflowLinkID deletes workflow link
+  DeleteWorkflowLink deletes workflow link
 
   Deletes an existing workflow link
 */
-func (a *Client) DeleteWorkflowLinkID(params *DeleteWorkflowLinkIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteWorkflowLinkIDNoContent, error) {
+func (a *Client) DeleteWorkflowLink(params *DeleteWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteWorkflowLinkNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteWorkflowLinkIDParams()
+		params = NewDeleteWorkflowLinkParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "deleteWorkflowLinkID",
+		ID:                 "deleteWorkflowLink",
 		Method:             "DELETE",
 		PathPattern:        "/{organization}/projects/{project}/wf_links/{link-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &DeleteWorkflowLinkIDReader{formats: a.formats},
+		Reader:             &DeleteWorkflowLinkReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -104,36 +104,36 @@ func (a *Client) DeleteWorkflowLinkID(params *DeleteWorkflowLinkIDParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteWorkflowLinkIDNoContent)
+	success, ok := result.(*DeleteWorkflowLinkNoContent)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for deleteWorkflowLinkID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for deleteWorkflowLink: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  GetWorkflowLinkID gets workflow link
+  GetWorkflowLink gets workflow link
 
   Returns information on a specific workflow link definition within a project
 */
-func (a *Client) GetWorkflowLinkID(params *GetWorkflowLinkIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetWorkflowLinkIDOK, error) {
+func (a *Client) GetWorkflowLink(params *GetWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*GetWorkflowLinkOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetWorkflowLinkIDParams()
+		params = NewGetWorkflowLinkParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getWorkflowLinkID",
+		ID:                 "getWorkflowLink",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/wf_links/{link-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetWorkflowLinkIDReader{formats: a.formats},
+		Reader:             &GetWorkflowLinkReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -141,36 +141,36 @@ func (a *Client) GetWorkflowLinkID(params *GetWorkflowLinkIDParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetWorkflowLinkIDOK)
+	success, ok := result.(*GetWorkflowLinkOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getWorkflowLinkID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for getWorkflowLink: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  ListWorkflowLinksID lists workflow links
+  ListWorkflowLinks lists workflow links
 
   Returns information on all workflow link definitions within a project
 */
-func (a *Client) ListWorkflowLinksID(params *ListWorkflowLinksIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListWorkflowLinksIDOK, error) {
+func (a *Client) ListWorkflowLinks(params *ListWorkflowLinksParams, authInfo runtime.ClientAuthInfoWriter) (*ListWorkflowLinksOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewListWorkflowLinksIDParams()
+		params = NewListWorkflowLinksParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "listWorkflowLinksID",
+		ID:                 "listWorkflowLinks",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/wf_links",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &ListWorkflowLinksIDReader{formats: a.formats},
+		Reader:             &ListWorkflowLinksReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -178,36 +178,36 @@ func (a *Client) ListWorkflowLinksID(params *ListWorkflowLinksIDParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ListWorkflowLinksIDOK)
+	success, ok := result.(*ListWorkflowLinksOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for listWorkflowLinksID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for listWorkflowLinks: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  PatchWorkflowLinkID updates workflow link
+  PatchWorkflowLink updates workflow link
 
   Updates the workflow link with a new name or URL (if applicable), or replaces the set of rules on the workflow link. If a non-empty parameter (i.e., name, URL, or Rules) is provided, the field will be overwritten with the new value. Links within a project must have a unique combination of name and URL. Admin or Member privileges are required to update workflow links. Searches that are not supplied are removed from the workflow link.
 */
-func (a *Client) PatchWorkflowLinkID(params *PatchWorkflowLinkIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchWorkflowLinkIDOK, error) {
+func (a *Client) PatchWorkflowLink(params *PatchWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*PatchWorkflowLinkOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPatchWorkflowLinkIDParams()
+		params = NewPatchWorkflowLinkParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "patchWorkflowLinkID",
+		ID:                 "patchWorkflowLink",
 		Method:             "PATCH",
 		PathPattern:        "/{organization}/projects/{project}/wf_links/{link-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &PatchWorkflowLinkIDReader{formats: a.formats},
+		Reader:             &PatchWorkflowLinkReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -215,13 +215,13 @@ func (a *Client) PatchWorkflowLinkID(params *PatchWorkflowLinkIDParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PatchWorkflowLinkIDOK)
+	success, ok := result.(*PatchWorkflowLinkOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for patchWorkflowLinkID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for patchWorkflowLink: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

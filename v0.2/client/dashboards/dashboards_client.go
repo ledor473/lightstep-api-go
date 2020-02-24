@@ -27,39 +27,39 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateDashboardID(params *CreateDashboardIDParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDashboardIDOK, error)
+	CreateDashboard(params *CreateDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDashboardOK, error)
 
-	DeleteDashboardID(params *DeleteDashboardIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDashboardIDNoContent, error)
+	DeleteDashboard(params *DeleteDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDashboardNoContent, error)
 
-	GetDashboardID(params *GetDashboardIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetDashboardIDOK, error)
+	GetDashboard(params *GetDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*GetDashboardOK, error)
 
-	ListDashboardsID(params *ListDashboardsIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListDashboardsIDOK, error)
+	ListDashboards(params *ListDashboardsParams, authInfo runtime.ClientAuthInfoWriter) (*ListDashboardsOK, error)
 
-	PatchDashboardID(params *PatchDashboardIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchDashboardIDOK, error)
+	PatchDashboard(params *PatchDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*PatchDashboardOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  CreateDashboardID creates dashboard
+  CreateDashboard creates dashboard
 
   Creates a new dashboard, with inline stream definitions. Automatically creates the necessary streams if they do not already exist.
 */
-func (a *Client) CreateDashboardID(params *CreateDashboardIDParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDashboardIDOK, error) {
+func (a *Client) CreateDashboard(params *CreateDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDashboardOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewCreateDashboardIDParams()
+		params = NewCreateDashboardParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "createDashboardID",
+		ID:                 "createDashboard",
 		Method:             "POST",
 		PathPattern:        "/{organization}/projects/{project}/dashboards",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &CreateDashboardIDReader{formats: a.formats},
+		Reader:             &CreateDashboardReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -67,36 +67,36 @@ func (a *Client) CreateDashboardID(params *CreateDashboardIDParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateDashboardIDOK)
+	success, ok := result.(*CreateDashboardOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for createDashboardID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for createDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  DeleteDashboardID deletes dashboard
+  DeleteDashboard deletes dashboard
 
   Deletes an existing dashboard. Deleting a dashboard only deletes the dashboard; the Streams are still available.
 */
-func (a *Client) DeleteDashboardID(params *DeleteDashboardIDParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDashboardIDNoContent, error) {
+func (a *Client) DeleteDashboard(params *DeleteDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDashboardNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteDashboardIDParams()
+		params = NewDeleteDashboardParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "deleteDashboardID",
+		ID:                 "deleteDashboard",
 		Method:             "DELETE",
 		PathPattern:        "/{organization}/projects/{project}/dashboard/{dashboard-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &DeleteDashboardIDReader{formats: a.formats},
+		Reader:             &DeleteDashboardReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -104,36 +104,36 @@ func (a *Client) DeleteDashboardID(params *DeleteDashboardIDParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteDashboardIDNoContent)
+	success, ok := result.(*DeleteDashboardNoContent)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for deleteDashboardID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for deleteDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  GetDashboardID gets dashboard
+  GetDashboard gets dashboard
 
   Returns complete information about a specific dashboard, including stream definitions
 */
-func (a *Client) GetDashboardID(params *GetDashboardIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetDashboardIDOK, error) {
+func (a *Client) GetDashboard(params *GetDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*GetDashboardOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetDashboardIDParams()
+		params = NewGetDashboardParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getDashboardID",
+		ID:                 "getDashboard",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/dashboards/{dashboard-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &GetDashboardIDReader{formats: a.formats},
+		Reader:             &GetDashboardReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -141,36 +141,36 @@ func (a *Client) GetDashboardID(params *GetDashboardIDParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetDashboardIDOK)
+	success, ok := result.(*GetDashboardOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getDashboardID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for getDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  ListDashboardsID lists dashboards
+  ListDashboards lists dashboards
 
   Returns information about all dashboards in a project
 */
-func (a *Client) ListDashboardsID(params *ListDashboardsIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListDashboardsIDOK, error) {
+func (a *Client) ListDashboards(params *ListDashboardsParams, authInfo runtime.ClientAuthInfoWriter) (*ListDashboardsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewListDashboardsIDParams()
+		params = NewListDashboardsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "listDashboardsID",
+		ID:                 "listDashboards",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/dashboards",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &ListDashboardsIDReader{formats: a.formats},
+		Reader:             &ListDashboardsReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -178,36 +178,36 @@ func (a *Client) ListDashboardsID(params *ListDashboardsIDParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ListDashboardsIDOK)
+	success, ok := result.(*ListDashboardsOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for listDashboardsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for listDashboards: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  PatchDashboardID updates dashboard
+  PatchDashboard updates dashboard
 
   Updates the dashboard with a new name (if applicable), and replaces the set of streams on the dashboard. Streams that are removed from the dashboard will not be deleted from the project. Streams that are not supplied are removed from the dashboard.
 */
-func (a *Client) PatchDashboardID(params *PatchDashboardIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchDashboardIDOK, error) {
+func (a *Client) PatchDashboard(params *PatchDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*PatchDashboardOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPatchDashboardIDParams()
+		params = NewPatchDashboardParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "patchDashboardID",
+		ID:                 "patchDashboard",
 		Method:             "PATCH",
 		PathPattern:        "/{organization}/projects/{project}/dashboards/{dashboard-id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &PatchDashboardIDReader{formats: a.formats},
+		Reader:             &PatchDashboardReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -215,13 +215,13 @@ func (a *Client) PatchDashboardID(params *PatchDashboardIDParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PatchDashboardIDOK)
+	success, ok := result.(*PatchDashboardOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for patchDashboardID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for patchDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

@@ -27,33 +27,33 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	TestReadID(params *TestReadIDParams, authInfo runtime.ClientAuthInfoWriter) (*TestReadIDOK, error)
+	TestRead(params *TestReadParams, authInfo runtime.ClientAuthInfoWriter) (*TestReadOK, error)
 
-	TestWriteID(params *TestWriteIDParams, authInfo runtime.ClientAuthInfoWriter) (*TestWriteIDOK, error)
+	TestWrite(params *TestWriteParams, authInfo runtime.ClientAuthInfoWriter) (*TestWriteOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  TestReadID reads test
+  TestRead reads test
 
   A read-only endpoint for testing your authentication key.
 */
-func (a *Client) TestReadID(params *TestReadIDParams, authInfo runtime.ClientAuthInfoWriter) (*TestReadIDOK, error) {
+func (a *Client) TestRead(params *TestReadParams, authInfo runtime.ClientAuthInfoWriter) (*TestReadOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewTestReadIDParams()
+		params = NewTestReadParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "testReadID",
+		ID:                 "testRead",
 		Method:             "GET",
 		PathPattern:        "/{organization}/test",
 		ProducesMediaTypes: []string{"application/text"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &TestReadIDReader{formats: a.formats},
+		Reader:             &TestReadReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -61,36 +61,36 @@ func (a *Client) TestReadID(params *TestReadIDParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*TestReadIDOK)
+	success, ok := result.(*TestReadOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for testReadID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for testRead: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
 /*
-  TestWriteID writes test
+  TestWrite writes test
 
   A write endpoint for testing your authentication key.
 */
-func (a *Client) TestWriteID(params *TestWriteIDParams, authInfo runtime.ClientAuthInfoWriter) (*TestWriteIDOK, error) {
+func (a *Client) TestWrite(params *TestWriteParams, authInfo runtime.ClientAuthInfoWriter) (*TestWriteOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewTestWriteIDParams()
+		params = NewTestWriteParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "testWriteID",
+		ID:                 "testWrite",
 		Method:             "POST",
 		PathPattern:        "/{organization}/test",
 		ProducesMediaTypes: []string{"application/text"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
-		Reader:             &TestWriteIDReader{formats: a.formats},
+		Reader:             &TestWriteReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -98,13 +98,13 @@ func (a *Client) TestWriteID(params *TestWriteIDParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*TestWriteIDOK)
+	success, ok := result.(*TestWriteOK)
 	if ok {
 		return success, nil
 	}
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for testWriteID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for testWrite: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
