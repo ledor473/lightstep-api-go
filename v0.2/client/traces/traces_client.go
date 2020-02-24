@@ -47,7 +47,7 @@ func (a *Client) StoredTraces(params *StoredTracesParams, authInfo runtime.Clien
 		ID:                 "storedTraces",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/stored-traces",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,

@@ -47,7 +47,7 @@ func (a *Client) CreateSnapshot(params *CreateSnapshotParams, authInfo runtime.C
 		ID:                 "createSnapshot",
 		Method:             "POST",
 		PathPattern:        "/{organization}/projects/{project}/snapshots",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,

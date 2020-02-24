@@ -47,7 +47,7 @@ func (a *Client) ListServices(params *ListServicesParams, authInfo runtime.Clien
 		ID:                 "listServices",
 		Method:             "GET",
 		PathPattern:        "/{organization}/projects/{project}/directory/services",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
 		Params:             params,
