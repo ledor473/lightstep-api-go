@@ -1,4 +1,4 @@
-package lightstep
+package v1
 
 import (
 	"github.com/go-openapi/runtime"
