@@ -7,11 +7,9 @@ package services
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // ListServicesReader is a Reader for the ListServices structure.
@@ -48,7 +46,7 @@ func (o *ListServicesReader) ReadResponse(response runtime.ClientResponse, consu
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -62,23 +60,13 @@ func NewListServicesOK() *ListServicesOK {
 JSON-formatted metadata about all services reporting in the project
 */
 type ListServicesOK struct {
-	Payload interface{}
 }
 
 func (o *ListServicesOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/directory/services][%d] listServicesOK  %+v", 200, o.Payload)
-}
-
-func (o *ListServicesOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/directory/services][%d] listServicesOK ", 200)
 }
 
 func (o *ListServicesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -93,23 +81,13 @@ func NewListServicesBadRequest() *ListServicesBadRequest {
 One or more parameter(s) are not valid
 */
 type ListServicesBadRequest struct {
-	Payload interface{}
 }
 
 func (o *ListServicesBadRequest) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/directory/services][%d] listServicesBadRequest  %+v", 400, o.Payload)
-}
-
-func (o *ListServicesBadRequest) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/directory/services][%d] listServicesBadRequest ", 400)
 }
 
 func (o *ListServicesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -124,23 +102,13 @@ func NewListServicesUnauthorized() *ListServicesUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type ListServicesUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *ListServicesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/directory/services][%d] listServicesUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ListServicesUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/directory/services][%d] listServicesUnauthorized ", 401)
 }
 
 func (o *ListServicesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -155,23 +123,13 @@ func NewListServicesNotFound() *ListServicesNotFound {
 Project name is not found
 */
 type ListServicesNotFound struct {
-	Payload interface{}
 }
 
 func (o *ListServicesNotFound) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/directory/services][%d] listServicesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListServicesNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/directory/services][%d] listServicesNotFound ", 404)
 }
 
 func (o *ListServicesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

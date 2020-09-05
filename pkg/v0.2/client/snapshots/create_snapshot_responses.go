@@ -7,11 +7,9 @@ package snapshots
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // CreateSnapshotReader is a Reader for the CreateSnapshot structure.
@@ -54,7 +52,7 @@ func (o *CreateSnapshotReader) ReadResponse(response runtime.ClientResponse, con
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -68,23 +66,13 @@ func NewCreateSnapshotOK() *CreateSnapshotOK {
 The snapshot was created successfully
 */
 type CreateSnapshotOK struct {
-	Payload interface{}
 }
 
 func (o *CreateSnapshotOK) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/snapshots][%d] createSnapshotOK  %+v", 200, o.Payload)
-}
-
-func (o *CreateSnapshotOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/snapshots][%d] createSnapshotOK ", 200)
 }
 
 func (o *CreateSnapshotOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -99,23 +87,13 @@ func NewCreateSnapshotBadRequest() *CreateSnapshotBadRequest {
 Query parameters invalid
 */
 type CreateSnapshotBadRequest struct {
-	Payload interface{}
 }
 
 func (o *CreateSnapshotBadRequest) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/snapshots][%d] createSnapshotBadRequest  %+v", 400, o.Payload)
-}
-
-func (o *CreateSnapshotBadRequest) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/snapshots][%d] createSnapshotBadRequest ", 400)
 }
 
 func (o *CreateSnapshotBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -130,23 +108,13 @@ func NewCreateSnapshotUnauthorized() *CreateSnapshotUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type CreateSnapshotUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *CreateSnapshotUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/snapshots][%d] createSnapshotUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *CreateSnapshotUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/snapshots][%d] createSnapshotUnauthorized ", 401)
 }
 
 func (o *CreateSnapshotUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -161,23 +129,13 @@ func NewCreateSnapshotNotFound() *CreateSnapshotNotFound {
 Project name is not found
 */
 type CreateSnapshotNotFound struct {
-	Payload interface{}
 }
 
 func (o *CreateSnapshotNotFound) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/snapshots][%d] createSnapshotNotFound  %+v", 404, o.Payload)
-}
-
-func (o *CreateSnapshotNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/snapshots][%d] createSnapshotNotFound ", 404)
 }
 
 func (o *CreateSnapshotNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -192,23 +150,13 @@ func NewCreateSnapshotTooManyRequests() *CreateSnapshotTooManyRequests {
 Snapshot creation exceeded rate limit
 */
 type CreateSnapshotTooManyRequests struct {
-	Payload interface{}
 }
 
 func (o *CreateSnapshotTooManyRequests) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/snapshots][%d] createSnapshotTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *CreateSnapshotTooManyRequests) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/snapshots][%d] createSnapshotTooManyRequests ", 429)
 }
 
 func (o *CreateSnapshotTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

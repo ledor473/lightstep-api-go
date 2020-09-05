@@ -10,8 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // ListConditionsReader is a Reader for the ListConditions structure.
@@ -42,7 +43,7 @@ func (o *ListConditionsReader) ReadResponse(response runtime.ClientResponse, con
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -56,14 +57,14 @@ func NewListConditionsOK() *ListConditionsOK {
 JSON-formatted metadata about all conditions in the project
 */
 type ListConditionsOK struct {
-	Payload interface{}
+	Payload response.ListConditions
 }
 
 func (o *ListConditionsOK) Error() string {
 	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions][%d] listConditionsOK  %+v", 200, o.Payload)
 }
 
-func (o *ListConditionsOK) GetPayload() interface{} {
+func (o *ListConditionsOK) GetPayload() response.ListConditions {
 	return o.Payload
 }
 
@@ -87,23 +88,13 @@ func NewListConditionsUnauthorized() *ListConditionsUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type ListConditionsUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *ListConditionsUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions][%d] listConditionsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ListConditionsUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions][%d] listConditionsUnauthorized ", 401)
 }
 
 func (o *ListConditionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -118,23 +109,13 @@ func NewListConditionsNotFound() *ListConditionsNotFound {
 Project name is not found
 */
 type ListConditionsNotFound struct {
-	Payload interface{}
 }
 
 func (o *ListConditionsNotFound) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions][%d] listConditionsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListConditionsNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions][%d] listConditionsNotFound ", 404)
 }
 
 func (o *ListConditionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

@@ -7,11 +7,9 @@ package streams
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // DeleteStreamReader is a Reader for the DeleteStream structure.
@@ -42,7 +40,7 @@ func (o *DeleteStreamReader) ReadResponse(response runtime.ClientResponse, consu
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -56,23 +54,13 @@ func NewDeleteStreamNoContent() *DeleteStreamNoContent {
 Stream was successfully deleted
 */
 type DeleteStreamNoContent struct {
-	Payload interface{}
 }
 
 func (o *DeleteStreamNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/streams/{stream-id}][%d] deleteStreamNoContent  %+v", 204, o.Payload)
-}
-
-func (o *DeleteStreamNoContent) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/streams/{stream-id}][%d] deleteStreamNoContent ", 204)
 }
 
 func (o *DeleteStreamNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -87,23 +75,13 @@ func NewDeleteStreamUnauthorized() *DeleteStreamUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type DeleteStreamUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *DeleteStreamUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/streams/{stream-id}][%d] deleteStreamUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteStreamUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/streams/{stream-id}][%d] deleteStreamUnauthorized ", 401)
 }
 
 func (o *DeleteStreamUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -118,23 +96,13 @@ func NewDeleteStreamNotFound() *DeleteStreamNotFound {
 Project name is not found
 */
 type DeleteStreamNotFound struct {
-	Payload interface{}
 }
 
 func (o *DeleteStreamNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/streams/{stream-id}][%d] deleteStreamNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteStreamNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/streams/{stream-id}][%d] deleteStreamNotFound ", 404)
 }
 
 func (o *DeleteStreamNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

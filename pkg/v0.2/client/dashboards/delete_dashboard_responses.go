@@ -7,11 +7,9 @@ package dashboards
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // DeleteDashboardReader is a Reader for the DeleteDashboard structure.
@@ -48,7 +46,7 @@ func (o *DeleteDashboardReader) ReadResponse(response runtime.ClientResponse, co
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -62,23 +60,13 @@ func NewDeleteDashboardNoContent() *DeleteDashboardNoContent {
 Dashboard was successfully deleted
 */
 type DeleteDashboardNoContent struct {
-	Payload interface{}
 }
 
 func (o *DeleteDashboardNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardNoContent  %+v", 204, o.Payload)
-}
-
-func (o *DeleteDashboardNoContent) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardNoContent ", 204)
 }
 
 func (o *DeleteDashboardNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -93,23 +81,13 @@ func NewDeleteDashboardUnauthorized() *DeleteDashboardUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type DeleteDashboardUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *DeleteDashboardUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteDashboardUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardUnauthorized ", 401)
 }
 
 func (o *DeleteDashboardUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -124,23 +102,13 @@ func NewDeleteDashboardNotFound() *DeleteDashboardNotFound {
 Project name is not found
 */
 type DeleteDashboardNotFound struct {
-	Payload interface{}
 }
 
 func (o *DeleteDashboardNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteDashboardNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardNotFound ", 404)
 }
 
 func (o *DeleteDashboardNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -155,23 +123,13 @@ func NewDeleteDashboardInternalServerError() *DeleteDashboardInternalServerError
 Dashboard identifier not found
 */
 type DeleteDashboardInternalServerError struct {
-	Payload interface{}
 }
 
 func (o *DeleteDashboardInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteDashboardInternalServerError) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardInternalServerError ", 500)
 }
 
 func (o *DeleteDashboardInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

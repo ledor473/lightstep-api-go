@@ -7,11 +7,9 @@ package traces
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // StoredTracesReader is a Reader for the StoredTraces structure.
@@ -42,7 +40,7 @@ func (o *StoredTracesReader) ReadResponse(response runtime.ClientResponse, consu
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -56,23 +54,13 @@ func NewStoredTracesOK() *StoredTracesOK {
 JSON representation of a stored trace
 */
 type StoredTracesOK struct {
-	Payload interface{}
 }
 
 func (o *StoredTracesOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/stored-traces][%d] storedTracesOK  %+v", 200, o.Payload)
-}
-
-func (o *StoredTracesOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/stored-traces][%d] storedTracesOK ", 200)
 }
 
 func (o *StoredTracesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -87,23 +75,13 @@ func NewStoredTracesBadRequest() *StoredTracesBadRequest {
 Missing required parameter
 */
 type StoredTracesBadRequest struct {
-	Payload interface{}
 }
 
 func (o *StoredTracesBadRequest) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/stored-traces][%d] storedTracesBadRequest  %+v", 400, o.Payload)
-}
-
-func (o *StoredTracesBadRequest) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/stored-traces][%d] storedTracesBadRequest ", 400)
 }
 
 func (o *StoredTracesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -118,23 +96,13 @@ func NewStoredTracesNotFound() *StoredTracesNotFound {
 No stored traces found
 */
 type StoredTracesNotFound struct {
-	Payload interface{}
 }
 
 func (o *StoredTracesNotFound) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/stored-traces][%d] storedTracesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *StoredTracesNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/stored-traces][%d] storedTracesNotFound ", 404)
 }
 
 func (o *StoredTracesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

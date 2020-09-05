@@ -7,11 +7,9 @@ package workflow_links
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // GetWorkflowLinkReader is a Reader for the GetWorkflowLink structure.
@@ -42,7 +40,7 @@ func (o *GetWorkflowLinkReader) ReadResponse(response runtime.ClientResponse, co
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -56,23 +54,13 @@ func NewGetWorkflowLinkOK() *GetWorkflowLinkOK {
 JSON-formatted metadata about the workflow link
 */
 type GetWorkflowLinkOK struct {
-	Payload interface{}
 }
 
 func (o *GetWorkflowLinkOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/wf_links/{link-id}][%d] getWorkflowLinkOK  %+v", 200, o.Payload)
-}
-
-func (o *GetWorkflowLinkOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/wf_links/{link-id}][%d] getWorkflowLinkOK ", 200)
 }
 
 func (o *GetWorkflowLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -87,23 +75,13 @@ func NewGetWorkflowLinkUnauthorized() *GetWorkflowLinkUnauthorized {
 The API Key does not provide access to this resource
 */
 type GetWorkflowLinkUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *GetWorkflowLinkUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/wf_links/{link-id}][%d] getWorkflowLinkUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetWorkflowLinkUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/wf_links/{link-id}][%d] getWorkflowLinkUnauthorized ", 401)
 }
 
 func (o *GetWorkflowLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -118,23 +96,13 @@ func NewGetWorkflowLinkNotFound() *GetWorkflowLinkNotFound {
 Organization, project name, or workflow link ID is not found
 */
 type GetWorkflowLinkNotFound struct {
-	Payload interface{}
 }
 
 func (o *GetWorkflowLinkNotFound) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/wf_links/{link-id}][%d] getWorkflowLinkNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetWorkflowLinkNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/wf_links/{link-id}][%d] getWorkflowLinkNotFound ", 404)
 }
 
 func (o *GetWorkflowLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

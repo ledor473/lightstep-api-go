@@ -6,15 +6,56 @@ package streams
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
+	"context"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
+//go:generate mockery -name API -inpkg
+
+// API is the interface of the streams client
+type API interface {
+	/*
+	   DeleteStream deletes stream
+
+	   Deletes an existing stream. Deleting a stream also deletes all historical data persisted for that stream and cannot be undone, so be sure you want to delete it.*/
+	DeleteStream(ctx context.Context, params *DeleteStreamParams) (*DeleteStreamNoContent, error)
+	/*
+	   GetStream gets stream
+
+	   Returns information about a specific stream*/
+	GetStream(ctx context.Context, params *GetStreamParams) (*GetStreamOK, error)
+	/*
+	   ListStreams lists streams
+
+	   Returns information about all streams in a project*/
+	ListStreams(ctx context.Context, params *ListStreamsParams) (*ListStreamsOK, error)
+	/*
+	   PatchStream updates stream
+
+	   Modifies the settings for an existing stream, to provide more descriptive info about it. A clientID must be supplied. By default, streams are given the query parameters as the name and cannot be updated using the query field (results in a error).*/
+	PatchStream(ctx context.Context, params *PatchStreamParams) (*PatchStreamOK, error)
+	/*
+	   PostStream creates stream
+
+	   Creates a new stream (or updates an existing stream if the query is identical). You do not need to include a clientID.*/
+	PostStream(ctx context.Context, params *PostStreamParams) (*PostStreamOK, error)
+	/*
+	   Timeseries timeseries
+
+	   Returns timeseries data for a stream*/
+	Timeseries(ctx context.Context, params *TimeseriesParams) (*TimeseriesOK, error)
+}
+
 // New creates a new streams API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
-	return &Client{transport: transport, formats: formats}
+func New(transport runtime.ClientTransport, formats strfmt.Registry, authInfo runtime.ClientAuthInfoWriter) *Client {
+	return &Client{
+		transport: transport,
+		formats:   formats,
+		authInfo:  authInfo,
+	}
 }
 
 /*
@@ -23,35 +64,15 @@ Client for streams API
 type Client struct {
 	transport runtime.ClientTransport
 	formats   strfmt.Registry
-}
-
-// ClientService is the interface for Client methods
-type ClientService interface {
-	DeleteStream(params *DeleteStreamParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteStreamNoContent, error)
-
-	GetStream(params *GetStreamParams, authInfo runtime.ClientAuthInfoWriter) (*GetStreamOK, error)
-
-	ListStreams(params *ListStreamsParams, authInfo runtime.ClientAuthInfoWriter) (*ListStreamsOK, error)
-
-	PatchStream(params *PatchStreamParams, authInfo runtime.ClientAuthInfoWriter) (*PatchStreamOK, error)
-
-	PostStream(params *PostStreamParams, authInfo runtime.ClientAuthInfoWriter) (*PostStreamOK, error)
-
-	Timeseries(params *TimeseriesParams, authInfo runtime.ClientAuthInfoWriter) (*TimeseriesOK, error)
-
-	SetTransport(transport runtime.ClientTransport)
+	authInfo  runtime.ClientAuthInfoWriter
 }
 
 /*
-  DeleteStream deletes stream
+DeleteStream deletes stream
 
-  Deletes an existing stream. Deleting a stream also deletes all historical data persisted for that stream and cannot be undone, so be sure you want to delete it.
+Deletes an existing stream. Deleting a stream also deletes all historical data persisted for that stream and cannot be undone, so be sure you want to delete it.
 */
-func (a *Client) DeleteStream(params *DeleteStreamParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteStreamNoContent, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteStreamParams()
-	}
+func (a *Client) DeleteStream(ctx context.Context, params *DeleteStreamParams) (*DeleteStreamNoContent, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteStream",
@@ -62,33 +83,23 @@ func (a *Client) DeleteStream(params *DeleteStreamParams, authInfo runtime.Clien
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteStreamReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteStreamNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for deleteStream: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*DeleteStreamNoContent), nil
+
 }
 
 /*
-  GetStream gets stream
+GetStream gets stream
 
-  Returns information about a specific stream
+Returns information about a specific stream
 */
-func (a *Client) GetStream(params *GetStreamParams, authInfo runtime.ClientAuthInfoWriter) (*GetStreamOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetStreamParams()
-	}
+func (a *Client) GetStream(ctx context.Context, params *GetStreamParams) (*GetStreamOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getStream",
@@ -99,33 +110,23 @@ func (a *Client) GetStream(params *GetStreamParams, authInfo runtime.ClientAuthI
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetStreamReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetStreamOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getStream: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetStreamOK), nil
+
 }
 
 /*
-  ListStreams lists streams
+ListStreams lists streams
 
-  Returns information about all streams in a project
+Returns information about all streams in a project
 */
-func (a *Client) ListStreams(params *ListStreamsParams, authInfo runtime.ClientAuthInfoWriter) (*ListStreamsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewListStreamsParams()
-	}
+func (a *Client) ListStreams(ctx context.Context, params *ListStreamsParams) (*ListStreamsOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listStreams",
@@ -136,33 +137,23 @@ func (a *Client) ListStreams(params *ListStreamsParams, authInfo runtime.ClientA
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ListStreamsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ListStreamsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for listStreams: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*ListStreamsOK), nil
+
 }
 
 /*
-  PatchStream updates stream
+PatchStream updates stream
 
-  Modifies the settings for an existing stream, to provide more descriptive info about it. A clientID must be supplied. By default, streams are given the query parameters as the name and cannot be updated using the query field (results in a error).
+Modifies the settings for an existing stream, to provide more descriptive info about it. A clientID must be supplied. By default, streams are given the query parameters as the name and cannot be updated using the query field (results in a error).
 */
-func (a *Client) PatchStream(params *PatchStreamParams, authInfo runtime.ClientAuthInfoWriter) (*PatchStreamOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPatchStreamParams()
-	}
+func (a *Client) PatchStream(ctx context.Context, params *PatchStreamParams) (*PatchStreamOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "patchStream",
@@ -173,33 +164,23 @@ func (a *Client) PatchStream(params *PatchStreamParams, authInfo runtime.ClientA
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &PatchStreamReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PatchStreamOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for patchStream: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PatchStreamOK), nil
+
 }
 
 /*
-  PostStream creates stream
+PostStream creates stream
 
-  Creates a new stream (or updates an existing stream if the query is identical). You do not need to include a clientID.
+Creates a new stream (or updates an existing stream if the query is identical). You do not need to include a clientID.
 */
-func (a *Client) PostStream(params *PostStreamParams, authInfo runtime.ClientAuthInfoWriter) (*PostStreamOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostStreamParams()
-	}
+func (a *Client) PostStream(ctx context.Context, params *PostStreamParams) (*PostStreamOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "postStream",
@@ -210,33 +191,23 @@ func (a *Client) PostStream(params *PostStreamParams, authInfo runtime.ClientAut
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &PostStreamReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PostStreamOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for postStream: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PostStreamOK), nil
+
 }
 
 /*
-  Timeseries timeseries
+Timeseries timeseries
 
-  Returns timeseries data for a stream
+Returns timeseries data for a stream
 */
-func (a *Client) Timeseries(params *TimeseriesParams, authInfo runtime.ClientAuthInfoWriter) (*TimeseriesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewTimeseriesParams()
-	}
+func (a *Client) Timeseries(ctx context.Context, params *TimeseriesParams) (*TimeseriesOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "timeseries",
@@ -247,24 +218,13 @@ func (a *Client) Timeseries(params *TimeseriesParams, authInfo runtime.ClientAut
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &TimeseriesReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*TimeseriesOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for timeseries: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
+	return result.(*TimeseriesOK), nil
 
-// SetTransport changes the transport on the client
-func (a *Client) SetTransport(transport runtime.ClientTransport) {
-	a.transport = transport
 }

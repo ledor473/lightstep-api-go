@@ -10,8 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // PostStreamReader is a Reader for the PostStream structure.
@@ -42,7 +43,7 @@ func (o *PostStreamReader) ReadResponse(response runtime.ClientResponse, consume
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -56,14 +57,14 @@ func NewPostStreamOK() *PostStreamOK {
 The stream was created (or updated) successfully
 */
 type PostStreamOK struct {
-	Payload interface{}
+	Payload response.PostStream
 }
 
 func (o *PostStreamOK) Error() string {
 	return fmt.Sprintf("[POST /{organization}/projects/{project}/streams][%d] postStreamOK  %+v", 200, o.Payload)
 }
 
-func (o *PostStreamOK) GetPayload() interface{} {
+func (o *PostStreamOK) GetPayload() response.PostStream {
 	return o.Payload
 }
 
@@ -87,23 +88,13 @@ func NewPostStreamUnauthorized() *PostStreamUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type PostStreamUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *PostStreamUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/streams][%d] postStreamUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostStreamUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/streams][%d] postStreamUnauthorized ", 401)
 }
 
 func (o *PostStreamUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -118,23 +109,13 @@ func NewPostStreamNotFound() *PostStreamNotFound {
 Project name is not found
 */
 type PostStreamNotFound struct {
-	Payload interface{}
 }
 
 func (o *PostStreamNotFound) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/streams][%d] postStreamNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostStreamNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/streams][%d] postStreamNotFound ", 404)
 }
 
 func (o *PostStreamNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

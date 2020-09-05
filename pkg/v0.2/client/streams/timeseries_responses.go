@@ -7,11 +7,9 @@ package streams
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // TimeseriesReader is a Reader for the Timeseries structure.
@@ -54,7 +52,7 @@ func (o *TimeseriesReader) ReadResponse(response runtime.ClientResponse, consume
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -68,23 +66,13 @@ func NewTimeseriesOK() *TimeseriesOK {
 JSON representation of a timeseries
 */
 type TimeseriesOK struct {
-	Payload interface{}
 }
 
 func (o *TimeseriesOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/timeseries][%d] timeseriesOK  %+v", 200, o.Payload)
-}
-
-func (o *TimeseriesOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/timeseries][%d] timeseriesOK ", 200)
 }
 
 func (o *TimeseriesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -99,23 +87,13 @@ func NewTimeseriesBadRequest() *TimeseriesBadRequest {
 One or more of the request parameter(s) is not valid
 */
 type TimeseriesBadRequest struct {
-	Payload interface{}
 }
 
 func (o *TimeseriesBadRequest) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/timeseries][%d] timeseriesBadRequest  %+v", 400, o.Payload)
-}
-
-func (o *TimeseriesBadRequest) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/timeseries][%d] timeseriesBadRequest ", 400)
 }
 
 func (o *TimeseriesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -130,23 +108,13 @@ func NewTimeseriesUnauthorized() *TimeseriesUnauthorized {
 The API Key does not provide access to this resource
 */
 type TimeseriesUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *TimeseriesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/timeseries][%d] timeseriesUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *TimeseriesUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/timeseries][%d] timeseriesUnauthorized ", 401)
 }
 
 func (o *TimeseriesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -161,23 +129,13 @@ func NewTimeseriesNotFound() *TimeseriesNotFound {
 Project name is not found
 */
 type TimeseriesNotFound struct {
-	Payload interface{}
 }
 
 func (o *TimeseriesNotFound) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/timeseries][%d] timeseriesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *TimeseriesNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/timeseries][%d] timeseriesNotFound ", 404)
 }
 
 func (o *TimeseriesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -192,23 +150,13 @@ func NewTimeseriesInternalServerError() *TimeseriesInternalServerError {
 Stream ID is not valid, or other internal error
 */
 type TimeseriesInternalServerError struct {
-	Payload interface{}
 }
 
 func (o *TimeseriesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/timeseries][%d] timeseriesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *TimeseriesInternalServerError) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/timeseries][%d] timeseriesInternalServerError ", 500)
 }
 
 func (o *TimeseriesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

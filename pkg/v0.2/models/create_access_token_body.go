@@ -7,11 +7,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // CreateAccessTokenBody create access token body
+//
 // swagger:model createAccessTokenBody
 type CreateAccessTokenBody struct {
 

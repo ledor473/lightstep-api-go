@@ -7,11 +7,9 @@ package dashboards
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // CreateDashboardReader is a Reader for the CreateDashboard structure.
@@ -48,7 +46,7 @@ func (o *CreateDashboardReader) ReadResponse(response runtime.ClientResponse, co
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -62,23 +60,13 @@ func NewCreateDashboardOK() *CreateDashboardOK {
 The dashboard was created (or updated) successfully
 */
 type CreateDashboardOK struct {
-	Payload interface{}
 }
 
 func (o *CreateDashboardOK) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/dashboards][%d] createDashboardOK  %+v", 200, o.Payload)
-}
-
-func (o *CreateDashboardOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/dashboards][%d] createDashboardOK ", 200)
 }
 
 func (o *CreateDashboardOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -93,23 +81,13 @@ func NewCreateDashboardBadRequest() *CreateDashboardBadRequest {
 No organization parameter provided
 */
 type CreateDashboardBadRequest struct {
-	Payload interface{}
 }
 
 func (o *CreateDashboardBadRequest) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/dashboards][%d] createDashboardBadRequest  %+v", 400, o.Payload)
-}
-
-func (o *CreateDashboardBadRequest) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/dashboards][%d] createDashboardBadRequest ", 400)
 }
 
 func (o *CreateDashboardBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -124,23 +102,13 @@ func NewCreateDashboardUnauthorized() *CreateDashboardUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type CreateDashboardUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *CreateDashboardUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/dashboards][%d] createDashboardUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *CreateDashboardUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/dashboards][%d] createDashboardUnauthorized ", 401)
 }
 
 func (o *CreateDashboardUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -155,23 +123,13 @@ func NewCreateDashboardNotFound() *CreateDashboardNotFound {
 Project name is not found
 */
 type CreateDashboardNotFound struct {
-	Payload interface{}
 }
 
 func (o *CreateDashboardNotFound) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/dashboards][%d] createDashboardNotFound  %+v", 404, o.Payload)
-}
-
-func (o *CreateDashboardNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/dashboards][%d] createDashboardNotFound ", 404)
 }
 
 func (o *CreateDashboardNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

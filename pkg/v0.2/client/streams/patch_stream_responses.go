@@ -10,8 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // PatchStreamReader is a Reader for the PatchStream structure.
@@ -54,7 +55,7 @@ func (o *PatchStreamReader) ReadResponse(response runtime.ClientResponse, consum
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -68,14 +69,14 @@ func NewPatchStreamOK() *PatchStreamOK {
 The stream was created (or updated) successfully
 */
 type PatchStreamOK struct {
-	Payload interface{}
+	Payload response.PatchStream
 }
 
 func (o *PatchStreamOK) Error() string {
 	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/streams/{stream-id}][%d] patchStreamOK  %+v", 200, o.Payload)
 }
 
-func (o *PatchStreamOK) GetPayload() interface{} {
+func (o *PatchStreamOK) GetPayload() response.PatchStream {
 	return o.Payload
 }
 
@@ -99,23 +100,13 @@ func NewPatchStreamBadRequest() *PatchStreamBadRequest {
 One or more parameter(s) are not valid
 */
 type PatchStreamBadRequest struct {
-	Payload interface{}
 }
 
 func (o *PatchStreamBadRequest) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/streams/{stream-id}][%d] patchStreamBadRequest  %+v", 400, o.Payload)
-}
-
-func (o *PatchStreamBadRequest) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/streams/{stream-id}][%d] patchStreamBadRequest ", 400)
 }
 
 func (o *PatchStreamBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -130,23 +121,13 @@ func NewPatchStreamUnauthorized() *PatchStreamUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type PatchStreamUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *PatchStreamUnauthorized) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/streams/{stream-id}][%d] patchStreamUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PatchStreamUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/streams/{stream-id}][%d] patchStreamUnauthorized ", 401)
 }
 
 func (o *PatchStreamUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -161,23 +142,13 @@ func NewPatchStreamNotFound() *PatchStreamNotFound {
 Project name is not found
 */
 type PatchStreamNotFound struct {
-	Payload interface{}
 }
 
 func (o *PatchStreamNotFound) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/streams/{stream-id}][%d] patchStreamNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PatchStreamNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/streams/{stream-id}][%d] patchStreamNotFound ", 404)
 }
 
 func (o *PatchStreamNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -192,23 +163,13 @@ func NewPatchStreamInternalServerError() *PatchStreamInternalServerError {
 Stream identifier not found
 */
 type PatchStreamInternalServerError struct {
-	Payload interface{}
 }
 
 func (o *PatchStreamInternalServerError) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/streams/{stream-id}][%d] patchStreamInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PatchStreamInternalServerError) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/streams/{stream-id}][%d] patchStreamInternalServerError ", 500)
 }
 
 func (o *PatchStreamInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

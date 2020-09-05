@@ -7,12 +7,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // SnapshotCreate snapshot create
+//
 // swagger:model snapshotCreate
 type SnapshotCreate struct {
 
@@ -71,6 +72,7 @@ func (m *SnapshotCreate) UnmarshalBinary(b []byte) error {
 }
 
 // Data data
+//
 // swagger:model Data
 type Data struct {
 
@@ -129,6 +131,7 @@ func (m *Data) UnmarshalBinary(b []byte) error {
 }
 
 // Attributes attributes
+//
 // swagger:model Attributes
 type Attributes struct {
 

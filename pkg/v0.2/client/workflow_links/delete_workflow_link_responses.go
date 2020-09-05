@@ -7,11 +7,9 @@ package workflow_links
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // DeleteWorkflowLinkReader is a Reader for the DeleteWorkflowLink structure.
@@ -42,7 +40,7 @@ func (o *DeleteWorkflowLinkReader) ReadResponse(response runtime.ClientResponse,
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -56,23 +54,13 @@ func NewDeleteWorkflowLinkNoContent() *DeleteWorkflowLinkNoContent {
 The workflow link was successfully deleted
 */
 type DeleteWorkflowLinkNoContent struct {
-	Payload interface{}
 }
 
 func (o *DeleteWorkflowLinkNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/wf_links/{link-id}][%d] deleteWorkflowLinkNoContent  %+v", 204, o.Payload)
-}
-
-func (o *DeleteWorkflowLinkNoContent) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/wf_links/{link-id}][%d] deleteWorkflowLinkNoContent ", 204)
 }
 
 func (o *DeleteWorkflowLinkNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -87,23 +75,13 @@ func NewDeleteWorkflowLinkUnauthorized() *DeleteWorkflowLinkUnauthorized {
 The API Key does not provide access to this resource
 */
 type DeleteWorkflowLinkUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *DeleteWorkflowLinkUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/wf_links/{link-id}][%d] deleteWorkflowLinkUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteWorkflowLinkUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/wf_links/{link-id}][%d] deleteWorkflowLinkUnauthorized ", 401)
 }
 
 func (o *DeleteWorkflowLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -118,23 +96,13 @@ func NewDeleteWorkflowLinkNotFound() *DeleteWorkflowLinkNotFound {
 Organization, project name, or workflow link ID is not found
 */
 type DeleteWorkflowLinkNotFound struct {
-	Payload interface{}
 }
 
 func (o *DeleteWorkflowLinkNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/wf_links/{link-id}][%d] deleteWorkflowLinkNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteWorkflowLinkNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/wf_links/{link-id}][%d] deleteWorkflowLinkNotFound ", 404)
 }
 
 func (o *DeleteWorkflowLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

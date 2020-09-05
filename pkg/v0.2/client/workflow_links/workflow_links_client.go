@@ -6,15 +6,51 @@ package workflow_links
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
+	"context"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
+//go:generate mockery -name API -inpkg
+
+// API is the interface of the workflow links client
+type API interface {
+	/*
+	   CreateWorkflowLink creates workflow link
+
+	   Creates a new workflow link. Links within a project must have a unique combination of Name and URL. Admin or Member privileges are required to create workflow links. Workflow name can also include [variables](https://docs.lightstep.com/docs/links-reference), allowing the link name to change dynamically based on the span being viewed.*/
+	CreateWorkflowLink(ctx context.Context, params *CreateWorkflowLinkParams) (*CreateWorkflowLinkOK, error)
+	/*
+	   DeleteWorkflowLink deletes workflow link
+
+	   Deletes an existing workflow link*/
+	DeleteWorkflowLink(ctx context.Context, params *DeleteWorkflowLinkParams) (*DeleteWorkflowLinkNoContent, error)
+	/*
+	   GetWorkflowLink gets workflow link
+
+	   Returns information on a specific workflow link definition within a project*/
+	GetWorkflowLink(ctx context.Context, params *GetWorkflowLinkParams) (*GetWorkflowLinkOK, error)
+	/*
+	   ListWorkflowLinks lists workflow links
+
+	   Returns information on all workflow link definitions within a project*/
+	ListWorkflowLinks(ctx context.Context, params *ListWorkflowLinksParams) (*ListWorkflowLinksOK, error)
+	/*
+	   PatchWorkflowLink updates workflow link
+
+	   Updates the workflow link with a new name or URL (if applicable), or replaces the set of rules on the workflow link. If a non-empty parameter (i.e., name, URL, or Rules) is provided, the field will be overwritten with the new value. Links within a project must have a unique combination of name and URL. Admin or Member privileges are required to update workflow links. Searches that are not supplied are removed from the workflow link.*/
+	PatchWorkflowLink(ctx context.Context, params *PatchWorkflowLinkParams) (*PatchWorkflowLinkOK, error)
+}
+
 // New creates a new workflow links API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
-	return &Client{transport: transport, formats: formats}
+func New(transport runtime.ClientTransport, formats strfmt.Registry, authInfo runtime.ClientAuthInfoWriter) *Client {
+	return &Client{
+		transport: transport,
+		formats:   formats,
+		authInfo:  authInfo,
+	}
 }
 
 /*
@@ -23,33 +59,15 @@ Client for workflow links API
 type Client struct {
 	transport runtime.ClientTransport
 	formats   strfmt.Registry
-}
-
-// ClientService is the interface for Client methods
-type ClientService interface {
-	CreateWorkflowLink(params *CreateWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*CreateWorkflowLinkOK, error)
-
-	DeleteWorkflowLink(params *DeleteWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteWorkflowLinkNoContent, error)
-
-	GetWorkflowLink(params *GetWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*GetWorkflowLinkOK, error)
-
-	ListWorkflowLinks(params *ListWorkflowLinksParams, authInfo runtime.ClientAuthInfoWriter) (*ListWorkflowLinksOK, error)
-
-	PatchWorkflowLink(params *PatchWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*PatchWorkflowLinkOK, error)
-
-	SetTransport(transport runtime.ClientTransport)
+	authInfo  runtime.ClientAuthInfoWriter
 }
 
 /*
-  CreateWorkflowLink creates workflow link
+CreateWorkflowLink creates workflow link
 
-  Creates a new workflow link. Links within a project must have a unique combination of Name and URL. Admin or Member privileges are required to create workflow links. Workflow name can also include [variables](https://docs.lightstep.com/docs/links-reference), allowing the link name to change dynamically based on the span being viewed.
+Creates a new workflow link. Links within a project must have a unique combination of Name and URL. Admin or Member privileges are required to create workflow links. Workflow name can also include [variables](https://docs.lightstep.com/docs/links-reference), allowing the link name to change dynamically based on the span being viewed.
 */
-func (a *Client) CreateWorkflowLink(params *CreateWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*CreateWorkflowLinkOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewCreateWorkflowLinkParams()
-	}
+func (a *Client) CreateWorkflowLink(ctx context.Context, params *CreateWorkflowLinkParams) (*CreateWorkflowLinkOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "createWorkflowLink",
@@ -60,33 +78,23 @@ func (a *Client) CreateWorkflowLink(params *CreateWorkflowLinkParams, authInfo r
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateWorkflowLinkReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateWorkflowLinkOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for createWorkflowLink: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*CreateWorkflowLinkOK), nil
+
 }
 
 /*
-  DeleteWorkflowLink deletes workflow link
+DeleteWorkflowLink deletes workflow link
 
-  Deletes an existing workflow link
+Deletes an existing workflow link
 */
-func (a *Client) DeleteWorkflowLink(params *DeleteWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteWorkflowLinkNoContent, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteWorkflowLinkParams()
-	}
+func (a *Client) DeleteWorkflowLink(ctx context.Context, params *DeleteWorkflowLinkParams) (*DeleteWorkflowLinkNoContent, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteWorkflowLink",
@@ -97,33 +105,23 @@ func (a *Client) DeleteWorkflowLink(params *DeleteWorkflowLinkParams, authInfo r
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteWorkflowLinkReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteWorkflowLinkNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for deleteWorkflowLink: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*DeleteWorkflowLinkNoContent), nil
+
 }
 
 /*
-  GetWorkflowLink gets workflow link
+GetWorkflowLink gets workflow link
 
-  Returns information on a specific workflow link definition within a project
+Returns information on a specific workflow link definition within a project
 */
-func (a *Client) GetWorkflowLink(params *GetWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*GetWorkflowLinkOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetWorkflowLinkParams()
-	}
+func (a *Client) GetWorkflowLink(ctx context.Context, params *GetWorkflowLinkParams) (*GetWorkflowLinkOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getWorkflowLink",
@@ -134,33 +132,23 @@ func (a *Client) GetWorkflowLink(params *GetWorkflowLinkParams, authInfo runtime
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetWorkflowLinkReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetWorkflowLinkOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getWorkflowLink: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetWorkflowLinkOK), nil
+
 }
 
 /*
-  ListWorkflowLinks lists workflow links
+ListWorkflowLinks lists workflow links
 
-  Returns information on all workflow link definitions within a project
+Returns information on all workflow link definitions within a project
 */
-func (a *Client) ListWorkflowLinks(params *ListWorkflowLinksParams, authInfo runtime.ClientAuthInfoWriter) (*ListWorkflowLinksOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewListWorkflowLinksParams()
-	}
+func (a *Client) ListWorkflowLinks(ctx context.Context, params *ListWorkflowLinksParams) (*ListWorkflowLinksOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listWorkflowLinks",
@@ -171,33 +159,23 @@ func (a *Client) ListWorkflowLinks(params *ListWorkflowLinksParams, authInfo run
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ListWorkflowLinksReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ListWorkflowLinksOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for listWorkflowLinks: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*ListWorkflowLinksOK), nil
+
 }
 
 /*
-  PatchWorkflowLink updates workflow link
+PatchWorkflowLink updates workflow link
 
-  Updates the workflow link with a new name or URL (if applicable), or replaces the set of rules on the workflow link. If a non-empty parameter (i.e., name, URL, or Rules) is provided, the field will be overwritten with the new value. Links within a project must have a unique combination of name and URL. Admin or Member privileges are required to update workflow links. Searches that are not supplied are removed from the workflow link.
+Updates the workflow link with a new name or URL (if applicable), or replaces the set of rules on the workflow link. If a non-empty parameter (i.e., name, URL, or Rules) is provided, the field will be overwritten with the new value. Links within a project must have a unique combination of name and URL. Admin or Member privileges are required to update workflow links. Searches that are not supplied are removed from the workflow link.
 */
-func (a *Client) PatchWorkflowLink(params *PatchWorkflowLinkParams, authInfo runtime.ClientAuthInfoWriter) (*PatchWorkflowLinkOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPatchWorkflowLinkParams()
-	}
+func (a *Client) PatchWorkflowLink(ctx context.Context, params *PatchWorkflowLinkParams) (*PatchWorkflowLinkOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "patchWorkflowLink",
@@ -208,24 +186,13 @@ func (a *Client) PatchWorkflowLink(params *PatchWorkflowLinkParams, authInfo run
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &PatchWorkflowLinkReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PatchWorkflowLinkOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for patchWorkflowLink: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
+	return result.(*PatchWorkflowLinkOK), nil
 
-// SetTransport changes the transport on the client
-func (a *Client) SetTransport(transport runtime.ClientTransport) {
-	a.transport = transport
 }

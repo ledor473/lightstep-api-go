@@ -7,11 +7,9 @@ package conditions
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // ListConditionsForStreamReader is a Reader for the ListConditionsForStream structure.
@@ -48,7 +46,7 @@ func (o *ListConditionsForStreamReader) ReadResponse(response runtime.ClientResp
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -62,23 +60,13 @@ func NewListConditionsForStreamOK() *ListConditionsForStreamOK {
 JSON-formatted metadata about all conditions in the given stream
 */
 type ListConditionsForStreamOK struct {
-	Payload interface{}
 }
 
 func (o *ListConditionsForStreamOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/conditions][%d] listConditionsForStreamOK  %+v", 200, o.Payload)
-}
-
-func (o *ListConditionsForStreamOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/conditions][%d] listConditionsForStreamOK ", 200)
 }
 
 func (o *ListConditionsForStreamOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -93,23 +81,13 @@ func NewListConditionsForStreamUnauthorized() *ListConditionsForStreamUnauthoriz
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type ListConditionsForStreamUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *ListConditionsForStreamUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/conditions][%d] listConditionsForStreamUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ListConditionsForStreamUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/conditions][%d] listConditionsForStreamUnauthorized ", 401)
 }
 
 func (o *ListConditionsForStreamUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -124,23 +102,13 @@ func NewListConditionsForStreamNotFound() *ListConditionsForStreamNotFound {
 Project name is not found
 */
 type ListConditionsForStreamNotFound struct {
-	Payload interface{}
 }
 
 func (o *ListConditionsForStreamNotFound) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/conditions][%d] listConditionsForStreamNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListConditionsForStreamNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/conditions][%d] listConditionsForStreamNotFound ", 404)
 }
 
 func (o *ListConditionsForStreamNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -155,23 +123,13 @@ func NewListConditionsForStreamInternalServerError() *ListConditionsForStreamInt
 The stream identifier is not valid
 */
 type ListConditionsForStreamInternalServerError struct {
-	Payload interface{}
 }
 
 func (o *ListConditionsForStreamInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/conditions][%d] listConditionsForStreamInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListConditionsForStreamInternalServerError) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}/conditions][%d] listConditionsForStreamInternalServerError ", 500)
 }
 
 func (o *ListConditionsForStreamInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

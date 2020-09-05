@@ -7,11 +7,9 @@ package conditions
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // PostConditionReader is a Reader for the PostCondition structure.
@@ -42,7 +40,7 @@ func (o *PostConditionReader) ReadResponse(response runtime.ClientResponse, cons
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -56,23 +54,13 @@ func NewPostConditionOK() *PostConditionOK {
 The condition was created successfully
 */
 type PostConditionOK struct {
-	Payload interface{}
 }
 
 func (o *PostConditionOK) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/conditions][%d] postConditionOK  %+v", 200, o.Payload)
-}
-
-func (o *PostConditionOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/conditions][%d] postConditionOK ", 200)
 }
 
 func (o *PostConditionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -87,23 +75,13 @@ func NewPostConditionUnauthorized() *PostConditionUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type PostConditionUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *PostConditionUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/conditions][%d] postConditionUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostConditionUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/conditions][%d] postConditionUnauthorized ", 401)
 }
 
 func (o *PostConditionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -118,23 +96,13 @@ func NewPostConditionNotFound() *PostConditionNotFound {
 Project name is not found
 */
 type PostConditionNotFound struct {
-	Payload interface{}
 }
 
 func (o *PostConditionNotFound) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/conditions][%d] postConditionNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostConditionNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/conditions][%d] postConditionNotFound ", 404)
 }
 
 func (o *PostConditionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

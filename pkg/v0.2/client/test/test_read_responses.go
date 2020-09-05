@@ -7,11 +7,9 @@ package test
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // TestReadReader is a Reader for the TestRead structure.
@@ -36,7 +34,7 @@ func (o *TestReadReader) ReadResponse(response runtime.ClientResponse, consumer 
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -50,23 +48,13 @@ func NewTestReadOK() *TestReadOK {
 OK!
 */
 type TestReadOK struct {
-	Payload interface{}
 }
 
 func (o *TestReadOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/test][%d] testReadOK  %+v", 200, o.Payload)
-}
-
-func (o *TestReadOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/test][%d] testReadOK ", 200)
 }
 
 func (o *TestReadOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -81,23 +69,13 @@ func NewTestReadUnauthorized() *TestReadUnauthorized {
 Unauthorized
 */
 type TestReadUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *TestReadUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /{organization}/test][%d] testReadUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *TestReadUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/test][%d] testReadUnauthorized ", 401)
 }
 
 func (o *TestReadUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

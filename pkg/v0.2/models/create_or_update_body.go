@@ -7,11 +7,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // CreateOrUpdateBody create or update body
+//
 // swagger:model createOrUpdateBody
 type CreateOrUpdateBody struct {
 

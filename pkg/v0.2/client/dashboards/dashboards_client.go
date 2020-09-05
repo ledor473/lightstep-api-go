@@ -6,15 +6,51 @@ package dashboards
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
+	"context"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
+//go:generate mockery -name API -inpkg
+
+// API is the interface of the dashboards client
+type API interface {
+	/*
+	   CreateDashboard creates dashboard
+
+	   Creates a new dashboard, with inline stream definitions. Automatically creates the necessary streams if they do not already exist.*/
+	CreateDashboard(ctx context.Context, params *CreateDashboardParams) (*CreateDashboardOK, error)
+	/*
+	   DeleteDashboard deletes dashboard
+
+	   Deletes an existing dashboard. Deleting a dashboard only deletes the dashboard; the Streams are still available.*/
+	DeleteDashboard(ctx context.Context, params *DeleteDashboardParams) (*DeleteDashboardNoContent, error)
+	/*
+	   GetDashboard gets dashboard
+
+	   Returns complete information about a specific dashboard, including stream definitions*/
+	GetDashboard(ctx context.Context, params *GetDashboardParams) (*GetDashboardOK, error)
+	/*
+	   ListDashboards lists dashboards
+
+	   Returns information about all dashboards in a project*/
+	ListDashboards(ctx context.Context, params *ListDashboardsParams) (*ListDashboardsOK, error)
+	/*
+	   PatchDashboard updates dashboard
+
+	   Updates the dashboard with a new name (if applicable), and replaces the set of streams on the dashboard. Streams that are removed from the dashboard will not be deleted from the project. Streams that are not supplied are removed from the dashboard.*/
+	PatchDashboard(ctx context.Context, params *PatchDashboardParams) (*PatchDashboardOK, error)
+}
+
 // New creates a new dashboards API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
-	return &Client{transport: transport, formats: formats}
+func New(transport runtime.ClientTransport, formats strfmt.Registry, authInfo runtime.ClientAuthInfoWriter) *Client {
+	return &Client{
+		transport: transport,
+		formats:   formats,
+		authInfo:  authInfo,
+	}
 }
 
 /*
@@ -23,33 +59,15 @@ Client for dashboards API
 type Client struct {
 	transport runtime.ClientTransport
 	formats   strfmt.Registry
-}
-
-// ClientService is the interface for Client methods
-type ClientService interface {
-	CreateDashboard(params *CreateDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDashboardOK, error)
-
-	DeleteDashboard(params *DeleteDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDashboardNoContent, error)
-
-	GetDashboard(params *GetDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*GetDashboardOK, error)
-
-	ListDashboards(params *ListDashboardsParams, authInfo runtime.ClientAuthInfoWriter) (*ListDashboardsOK, error)
-
-	PatchDashboard(params *PatchDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*PatchDashboardOK, error)
-
-	SetTransport(transport runtime.ClientTransport)
+	authInfo  runtime.ClientAuthInfoWriter
 }
 
 /*
-  CreateDashboard creates dashboard
+CreateDashboard creates dashboard
 
-  Creates a new dashboard, with inline stream definitions. Automatically creates the necessary streams if they do not already exist.
+Creates a new dashboard, with inline stream definitions. Automatically creates the necessary streams if they do not already exist.
 */
-func (a *Client) CreateDashboard(params *CreateDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDashboardOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewCreateDashboardParams()
-	}
+func (a *Client) CreateDashboard(ctx context.Context, params *CreateDashboardParams) (*CreateDashboardOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "createDashboard",
@@ -60,33 +78,23 @@ func (a *Client) CreateDashboard(params *CreateDashboardParams, authInfo runtime
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateDashboardReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateDashboardOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for createDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*CreateDashboardOK), nil
+
 }
 
 /*
-  DeleteDashboard deletes dashboard
+DeleteDashboard deletes dashboard
 
-  Deletes an existing dashboard. Deleting a dashboard only deletes the dashboard; the Streams are still available.
+Deletes an existing dashboard. Deleting a dashboard only deletes the dashboard; the Streams are still available.
 */
-func (a *Client) DeleteDashboard(params *DeleteDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDashboardNoContent, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteDashboardParams()
-	}
+func (a *Client) DeleteDashboard(ctx context.Context, params *DeleteDashboardParams) (*DeleteDashboardNoContent, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteDashboard",
@@ -97,33 +105,23 @@ func (a *Client) DeleteDashboard(params *DeleteDashboardParams, authInfo runtime
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteDashboardReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteDashboardNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for deleteDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*DeleteDashboardNoContent), nil
+
 }
 
 /*
-  GetDashboard gets dashboard
+GetDashboard gets dashboard
 
-  Returns complete information about a specific dashboard, including stream definitions
+Returns complete information about a specific dashboard, including stream definitions
 */
-func (a *Client) GetDashboard(params *GetDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*GetDashboardOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetDashboardParams()
-	}
+func (a *Client) GetDashboard(ctx context.Context, params *GetDashboardParams) (*GetDashboardOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getDashboard",
@@ -134,33 +132,23 @@ func (a *Client) GetDashboard(params *GetDashboardParams, authInfo runtime.Clien
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetDashboardReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetDashboardOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetDashboardOK), nil
+
 }
 
 /*
-  ListDashboards lists dashboards
+ListDashboards lists dashboards
 
-  Returns information about all dashboards in a project
+Returns information about all dashboards in a project
 */
-func (a *Client) ListDashboards(params *ListDashboardsParams, authInfo runtime.ClientAuthInfoWriter) (*ListDashboardsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewListDashboardsParams()
-	}
+func (a *Client) ListDashboards(ctx context.Context, params *ListDashboardsParams) (*ListDashboardsOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listDashboards",
@@ -171,33 +159,23 @@ func (a *Client) ListDashboards(params *ListDashboardsParams, authInfo runtime.C
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ListDashboardsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ListDashboardsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for listDashboards: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*ListDashboardsOK), nil
+
 }
 
 /*
-  PatchDashboard updates dashboard
+PatchDashboard updates dashboard
 
-  Updates the dashboard with a new name (if applicable), and replaces the set of streams on the dashboard. Streams that are removed from the dashboard will not be deleted from the project. Streams that are not supplied are removed from the dashboard.
+Updates the dashboard with a new name (if applicable), and replaces the set of streams on the dashboard. Streams that are removed from the dashboard will not be deleted from the project. Streams that are not supplied are removed from the dashboard.
 */
-func (a *Client) PatchDashboard(params *PatchDashboardParams, authInfo runtime.ClientAuthInfoWriter) (*PatchDashboardOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPatchDashboardParams()
-	}
+func (a *Client) PatchDashboard(ctx context.Context, params *PatchDashboardParams) (*PatchDashboardOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "patchDashboard",
@@ -208,24 +186,13 @@ func (a *Client) PatchDashboard(params *PatchDashboardParams, authInfo runtime.C
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &PatchDashboardReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PatchDashboardOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for patchDashboard: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
+	return result.(*PatchDashboardOK), nil
 
-// SetTransport changes the transport on the client
-func (a *Client) SetTransport(transport runtime.ClientTransport) {
-	a.transport = transport
 }

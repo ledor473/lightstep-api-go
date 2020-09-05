@@ -7,11 +7,9 @@ package dashboards
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // PatchDashboardReader is a Reader for the PatchDashboard structure.
@@ -54,7 +52,7 @@ func (o *PatchDashboardReader) ReadResponse(response runtime.ClientResponse, con
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -68,23 +66,13 @@ func NewPatchDashboardOK() *PatchDashboardOK {
 The dashboard was updated successfully
 */
 type PatchDashboardOK struct {
-	Payload interface{}
 }
 
 func (o *PatchDashboardOK) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardOK  %+v", 200, o.Payload)
-}
-
-func (o *PatchDashboardOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardOK ", 200)
 }
 
 func (o *PatchDashboardOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -99,23 +87,13 @@ func NewPatchDashboardBadRequest() *PatchDashboardBadRequest {
 One or more parameter(s) are not valid
 */
 type PatchDashboardBadRequest struct {
-	Payload interface{}
 }
 
 func (o *PatchDashboardBadRequest) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardBadRequest  %+v", 400, o.Payload)
-}
-
-func (o *PatchDashboardBadRequest) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardBadRequest ", 400)
 }
 
 func (o *PatchDashboardBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -130,23 +108,13 @@ func NewPatchDashboardUnauthorized() *PatchDashboardUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type PatchDashboardUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *PatchDashboardUnauthorized) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PatchDashboardUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardUnauthorized ", 401)
 }
 
 func (o *PatchDashboardUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -161,23 +129,13 @@ func NewPatchDashboardNotFound() *PatchDashboardNotFound {
 Project name is not found
 */
 type PatchDashboardNotFound struct {
-	Payload interface{}
 }
 
 func (o *PatchDashboardNotFound) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PatchDashboardNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardNotFound ", 404)
 }
 
 func (o *PatchDashboardNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -192,23 +150,13 @@ func NewPatchDashboardInternalServerError() *PatchDashboardInternalServerError {
 Dashboard identifier not found
 */
 type PatchDashboardInternalServerError struct {
-	Payload interface{}
 }
 
 func (o *PatchDashboardInternalServerError) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PatchDashboardInternalServerError) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardInternalServerError ", 500)
 }
 
 func (o *PatchDashboardInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

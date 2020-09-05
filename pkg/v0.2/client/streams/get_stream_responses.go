@@ -10,8 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // GetStreamReader is a Reader for the GetStream structure.
@@ -48,7 +49,7 @@ func (o *GetStreamReader) ReadResponse(response runtime.ClientResponse, consumer
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -62,14 +63,14 @@ func NewGetStreamOK() *GetStreamOK {
 JSON-formatted data about the given stream
 */
 type GetStreamOK struct {
-	Payload interface{}
+	Payload response.GetStream
 }
 
 func (o *GetStreamOK) Error() string {
 	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}][%d] getStreamOK  %+v", 200, o.Payload)
 }
 
-func (o *GetStreamOK) GetPayload() interface{} {
+func (o *GetStreamOK) GetPayload() response.GetStream {
 	return o.Payload
 }
 
@@ -93,23 +94,13 @@ func NewGetStreamUnauthorized() *GetStreamUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type GetStreamUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *GetStreamUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}][%d] getStreamUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetStreamUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}][%d] getStreamUnauthorized ", 401)
 }
 
 func (o *GetStreamUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -124,23 +115,13 @@ func NewGetStreamNotFound() *GetStreamNotFound {
 Project name is not found
 */
 type GetStreamNotFound struct {
-	Payload interface{}
 }
 
 func (o *GetStreamNotFound) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}][%d] getStreamNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetStreamNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}][%d] getStreamNotFound ", 404)
 }
 
 func (o *GetStreamNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -155,23 +136,13 @@ func NewGetStreamInternalServerError() *GetStreamInternalServerError {
 The stream identifier is not valid
 */
 type GetStreamInternalServerError struct {
-	Payload interface{}
 }
 
 func (o *GetStreamInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}][%d] getStreamInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *GetStreamInternalServerError) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/streams/{stream-id}][%d] getStreamInternalServerError ", 500)
 }
 
 func (o *GetStreamInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

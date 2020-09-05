@@ -1,6 +1,11 @@
 # lightstep-api-go
 ## Unofficial client library for LightStep Public API
 
-Generated using [`go-swagger`](https://goswagger.io/)
+Mostly generated using [`go-swagger`](https://goswagger.io/). The details can be found under `internal/`
 
-For more details about the API, see the [LightStep Learning Portal](https://api-docs.lightstep.com/).
+For documentation about the API, refer to the [LightStep Learning Portal](https://api-docs.lightstep.com/).
+
+## Usage
+```
+api := client.New(client.Config{AuthInfo: openapi.APIKeyAuth("Authorization", "header", apikey)})
+```

@@ -6,15 +6,36 @@ package projects
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
+	"context"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
+//go:generate mockery -name API -inpkg
+
+// API is the interface of the projects client
+type API interface {
+	/*
+	   GetProject gets project
+
+	   Returns information about a specific project*/
+	GetProject(ctx context.Context, params *GetProjectParams) (*GetProjectOK, error)
+	/*
+	   ListProjects lists projects
+
+	   Returns information about all projects in an organization*/
+	ListProjects(ctx context.Context, params *ListProjectsParams) (*ListProjectsOK, error)
+}
+
 // New creates a new projects API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
-	return &Client{transport: transport, formats: formats}
+func New(transport runtime.ClientTransport, formats strfmt.Registry, authInfo runtime.ClientAuthInfoWriter) *Client {
+	return &Client{
+		transport: transport,
+		formats:   formats,
+		authInfo:  authInfo,
+	}
 }
 
 /*
@@ -23,27 +44,15 @@ Client for projects API
 type Client struct {
 	transport runtime.ClientTransport
 	formats   strfmt.Registry
-}
-
-// ClientService is the interface for Client methods
-type ClientService interface {
-	GetProject(params *GetProjectParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectOK, error)
-
-	ListProjects(params *ListProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*ListProjectsOK, error)
-
-	SetTransport(transport runtime.ClientTransport)
+	authInfo  runtime.ClientAuthInfoWriter
 }
 
 /*
-  GetProject gets project
+GetProject gets project
 
-  Returns information about a specific project
+Returns information about a specific project
 */
-func (a *Client) GetProject(params *GetProjectParams, authInfo runtime.ClientAuthInfoWriter) (*GetProjectOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetProjectParams()
-	}
+func (a *Client) GetProject(ctx context.Context, params *GetProjectParams) (*GetProjectOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getProject",
@@ -54,33 +63,23 @@ func (a *Client) GetProject(params *GetProjectParams, authInfo runtime.ClientAut
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetProjectReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetProjectOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getProject: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetProjectOK), nil
+
 }
 
 /*
-  ListProjects lists projects
+ListProjects lists projects
 
-  Returns information about all projects in an organization
+Returns information about all projects in an organization
 */
-func (a *Client) ListProjects(params *ListProjectsParams, authInfo runtime.ClientAuthInfoWriter) (*ListProjectsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewListProjectsParams()
-	}
+func (a *Client) ListProjects(ctx context.Context, params *ListProjectsParams) (*ListProjectsOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listProjects",
@@ -91,24 +90,13 @@ func (a *Client) ListProjects(params *ListProjectsParams, authInfo runtime.Clien
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ListProjectsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
+		AuthInfo:           a.authInfo,
+		Context:            ctx,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*ListProjectsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for listProjects: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
+	return result.(*ListProjectsOK), nil
 
-// SetTransport changes the transport on the client
-func (a *Client) SetTransport(transport runtime.ClientTransport) {
-	a.transport = transport
 }

@@ -7,11 +7,9 @@ package conditions
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // PatchConditionReader is a Reader for the PatchCondition structure.
@@ -54,7 +52,7 @@ func (o *PatchConditionReader) ReadResponse(response runtime.ClientResponse, con
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -68,23 +66,13 @@ func NewPatchConditionOK() *PatchConditionOK {
 The condition was updated successfully
 */
 type PatchConditionOK struct {
-	Payload interface{}
 }
 
 func (o *PatchConditionOK) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionOK  %+v", 200, o.Payload)
-}
-
-func (o *PatchConditionOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionOK ", 200)
 }
 
 func (o *PatchConditionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -99,23 +87,13 @@ func NewPatchConditionBadRequest() *PatchConditionBadRequest {
 One or more parameter(s) are not valid
 */
 type PatchConditionBadRequest struct {
-	Payload interface{}
 }
 
 func (o *PatchConditionBadRequest) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionBadRequest  %+v", 400, o.Payload)
-}
-
-func (o *PatchConditionBadRequest) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionBadRequest ", 400)
 }
 
 func (o *PatchConditionBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -130,23 +108,13 @@ func NewPatchConditionUnauthorized() *PatchConditionUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type PatchConditionUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *PatchConditionUnauthorized) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PatchConditionUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionUnauthorized ", 401)
 }
 
 func (o *PatchConditionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -161,23 +129,13 @@ func NewPatchConditionNotFound() *PatchConditionNotFound {
 Project name is not found
 */
 type PatchConditionNotFound struct {
-	Payload interface{}
 }
 
 func (o *PatchConditionNotFound) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PatchConditionNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionNotFound ", 404)
 }
 
 func (o *PatchConditionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -192,23 +150,13 @@ func NewPatchConditionInternalServerError() *PatchConditionInternalServerError {
 Condition identifier not found
 */
 type PatchConditionInternalServerError struct {
-	Payload interface{}
 }
 
 func (o *PatchConditionInternalServerError) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PatchConditionInternalServerError) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionInternalServerError ", 500)
 }
 
 func (o *PatchConditionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

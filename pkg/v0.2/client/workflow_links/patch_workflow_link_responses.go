@@ -7,11 +7,9 @@ package workflow_links
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // PatchWorkflowLinkReader is a Reader for the PatchWorkflowLink structure.
@@ -54,7 +52,7 @@ func (o *PatchWorkflowLinkReader) ReadResponse(response runtime.ClientResponse, 
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -68,23 +66,13 @@ func NewPatchWorkflowLinkOK() *PatchWorkflowLinkOK {
 The workflow link was updated successfully
 */
 type PatchWorkflowLinkOK struct {
-	Payload interface{}
 }
 
 func (o *PatchWorkflowLinkOK) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkOK  %+v", 200, o.Payload)
-}
-
-func (o *PatchWorkflowLinkOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkOK ", 200)
 }
 
 func (o *PatchWorkflowLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -99,23 +87,13 @@ func NewPatchWorkflowLinkBadRequest() *PatchWorkflowLinkBadRequest {
 Bad request - could not decode JSON request
 */
 type PatchWorkflowLinkBadRequest struct {
-	Payload interface{}
 }
 
 func (o *PatchWorkflowLinkBadRequest) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkBadRequest  %+v", 400, o.Payload)
-}
-
-func (o *PatchWorkflowLinkBadRequest) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkBadRequest ", 400)
 }
 
 func (o *PatchWorkflowLinkBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -130,23 +108,13 @@ func NewPatchWorkflowLinkUnauthorized() *PatchWorkflowLinkUnauthorized {
 The API Key does not provide access to this resource
 */
 type PatchWorkflowLinkUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *PatchWorkflowLinkUnauthorized) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PatchWorkflowLinkUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkUnauthorized ", 401)
 }
 
 func (o *PatchWorkflowLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -161,23 +129,13 @@ func NewPatchWorkflowLinkForbidden() *PatchWorkflowLinkForbidden {
 Unsupported request to create resource - links within the same project cannot have the same name and URL.
 */
 type PatchWorkflowLinkForbidden struct {
-	Payload interface{}
 }
 
 func (o *PatchWorkflowLinkForbidden) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PatchWorkflowLinkForbidden) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkForbidden ", 403)
 }
 
 func (o *PatchWorkflowLinkForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -192,23 +150,13 @@ func NewPatchWorkflowLinkNotFound() *PatchWorkflowLinkNotFound {
 Organization, project name, or workflow link ID is not found
 */
 type PatchWorkflowLinkNotFound struct {
-	Payload interface{}
 }
 
 func (o *PatchWorkflowLinkNotFound) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PatchWorkflowLinkNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkNotFound ", 404)
 }
 
 func (o *PatchWorkflowLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

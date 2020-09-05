@@ -7,11 +7,9 @@ package conditions
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // DeleteConditionReader is a Reader for the DeleteCondition structure.
@@ -42,7 +40,7 @@ func (o *DeleteConditionReader) ReadResponse(response runtime.ClientResponse, co
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -56,23 +54,13 @@ func NewDeleteConditionNoContent() *DeleteConditionNoContent {
 Condition was successfully deleted
 */
 type DeleteConditionNoContent struct {
-	Payload interface{}
 }
 
 func (o *DeleteConditionNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/conditions/{condition-id}][%d] deleteConditionNoContent  %+v", 204, o.Payload)
-}
-
-func (o *DeleteConditionNoContent) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/conditions/{condition-id}][%d] deleteConditionNoContent ", 204)
 }
 
 func (o *DeleteConditionNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -87,23 +75,13 @@ func NewDeleteConditionUnauthorized() *DeleteConditionUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type DeleteConditionUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *DeleteConditionUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/conditions/{condition-id}][%d] deleteConditionUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteConditionUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/conditions/{condition-id}][%d] deleteConditionUnauthorized ", 401)
 }
 
 func (o *DeleteConditionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -118,23 +96,13 @@ func NewDeleteConditionNotFound() *DeleteConditionNotFound {
 Project name is not found
 */
 type DeleteConditionNotFound struct {
-	Payload interface{}
 }
 
 func (o *DeleteConditionNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/conditions/{condition-id}][%d] deleteConditionNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteConditionNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/conditions/{condition-id}][%d] deleteConditionNotFound ", 404)
 }
 
 func (o *DeleteConditionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

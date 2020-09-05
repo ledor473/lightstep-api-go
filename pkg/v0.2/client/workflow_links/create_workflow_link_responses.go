@@ -7,11 +7,9 @@ package workflow_links
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // CreateWorkflowLinkReader is a Reader for the CreateWorkflowLink structure.
@@ -54,7 +52,7 @@ func (o *CreateWorkflowLinkReader) ReadResponse(response runtime.ClientResponse,
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -68,23 +66,13 @@ func NewCreateWorkflowLinkOK() *CreateWorkflowLinkOK {
 The workflow link was created successfully
 */
 type CreateWorkflowLinkOK struct {
-	Payload interface{}
 }
 
 func (o *CreateWorkflowLinkOK) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkOK  %+v", 200, o.Payload)
-}
-
-func (o *CreateWorkflowLinkOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkOK ", 200)
 }
 
 func (o *CreateWorkflowLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -99,23 +87,13 @@ func NewCreateWorkflowLinkBadRequest() *CreateWorkflowLinkBadRequest {
 Bad request - could not decode JSON request, or a parameter (name, URL, or Rules) is missing
 */
 type CreateWorkflowLinkBadRequest struct {
-	Payload interface{}
 }
 
 func (o *CreateWorkflowLinkBadRequest) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkBadRequest  %+v", 400, o.Payload)
-}
-
-func (o *CreateWorkflowLinkBadRequest) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkBadRequest ", 400)
 }
 
 func (o *CreateWorkflowLinkBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -130,23 +108,13 @@ func NewCreateWorkflowLinkUnauthorized() *CreateWorkflowLinkUnauthorized {
 The API Key does not provide access to this resource
 */
 type CreateWorkflowLinkUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *CreateWorkflowLinkUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *CreateWorkflowLinkUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkUnauthorized ", 401)
 }
 
 func (o *CreateWorkflowLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -161,23 +129,13 @@ func NewCreateWorkflowLinkForbidden() *CreateWorkflowLinkForbidden {
 Unsupported request to create resource - links within the same project cannot have the same name and URL.
 */
 type CreateWorkflowLinkForbidden struct {
-	Payload interface{}
 }
 
 func (o *CreateWorkflowLinkForbidden) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkForbidden  %+v", 403, o.Payload)
-}
-
-func (o *CreateWorkflowLinkForbidden) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkForbidden ", 403)
 }
 
 func (o *CreateWorkflowLinkForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -192,23 +150,13 @@ func NewCreateWorkflowLinkNotFound() *CreateWorkflowLinkNotFound {
 Organization or project not found
 */
 type CreateWorkflowLinkNotFound struct {
-	Payload interface{}
 }
 
 func (o *CreateWorkflowLinkNotFound) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkNotFound  %+v", 404, o.Payload)
-}
-
-func (o *CreateWorkflowLinkNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkNotFound ", 404)
 }
 
 func (o *CreateWorkflowLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

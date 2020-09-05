@@ -7,11 +7,9 @@ package conditions
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // GetConditionReader is a Reader for the GetCondition structure.
@@ -48,7 +46,7 @@ func (o *GetConditionReader) ReadResponse(response runtime.ClientResponse, consu
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -62,23 +60,13 @@ func NewGetConditionOK() *GetConditionOK {
 JSON-formatted data about the given condition
 */
 type GetConditionOK struct {
-	Payload interface{}
 }
 
 func (o *GetConditionOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions/{condition-id}][%d] getConditionOK  %+v", 200, o.Payload)
-}
-
-func (o *GetConditionOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions/{condition-id}][%d] getConditionOK ", 200)
 }
 
 func (o *GetConditionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -93,23 +81,13 @@ func NewGetConditionUnauthorized() *GetConditionUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type GetConditionUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *GetConditionUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions/{condition-id}][%d] getConditionUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetConditionUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions/{condition-id}][%d] getConditionUnauthorized ", 401)
 }
 
 func (o *GetConditionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -124,23 +102,13 @@ func NewGetConditionNotFound() *GetConditionNotFound {
 Project name is not found
 */
 type GetConditionNotFound struct {
-	Payload interface{}
 }
 
 func (o *GetConditionNotFound) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions/{condition-id}][%d] getConditionNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetConditionNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions/{condition-id}][%d] getConditionNotFound ", 404)
 }
 
 func (o *GetConditionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -155,23 +123,13 @@ func NewGetConditionInternalServerError() *GetConditionInternalServerError {
 The condition identifier is not valid
 */
 type GetConditionInternalServerError struct {
-	Payload interface{}
 }
 
 func (o *GetConditionInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions/{condition-id}][%d] getConditionInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *GetConditionInternalServerError) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions/{condition-id}][%d] getConditionInternalServerError ", 500)
 }
 
 func (o *GetConditionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

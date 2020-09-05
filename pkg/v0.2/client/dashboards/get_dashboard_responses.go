@@ -7,11 +7,9 @@ package dashboards
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 )
 
 // GetDashboardReader is a Reader for the GetDashboard structure.
@@ -42,7 +40,7 @@ func (o *GetDashboardReader) ReadResponse(response runtime.ClientResponse, consu
 		return nil, result
 
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -56,23 +54,13 @@ func NewGetDashboardOK() *GetDashboardOK {
 JSON-formatted metadata about the dashboard
 */
 type GetDashboardOK struct {
-	Payload interface{}
 }
 
 func (o *GetDashboardOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] getDashboardOK  %+v", 200, o.Payload)
-}
-
-func (o *GetDashboardOK) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] getDashboardOK ", 200)
 }
 
 func (o *GetDashboardOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -87,23 +75,13 @@ func NewGetDashboardUnauthorized() *GetDashboardUnauthorized {
 The API Key does not provide access to this resource, or the organization name does not exist
 */
 type GetDashboardUnauthorized struct {
-	Payload interface{}
 }
 
 func (o *GetDashboardUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] getDashboardUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetDashboardUnauthorized) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] getDashboardUnauthorized ", 401)
 }
 
 func (o *GetDashboardUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
@@ -118,23 +96,13 @@ func NewGetDashboardNotFound() *GetDashboardNotFound {
 Project name or dashboard ID is not found
 */
 type GetDashboardNotFound struct {
-	Payload interface{}
 }
 
 func (o *GetDashboardNotFound) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] getDashboardNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetDashboardNotFound) GetPayload() interface{} {
-	return o.Payload
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] getDashboardNotFound ", 404)
 }
 
 func (o *GetDashboardNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
