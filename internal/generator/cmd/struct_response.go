@@ -37,7 +37,7 @@ func structResponse(cmd *cobra.Command, args []string) error {
 		}
 		structName := strings.TrimSuffix(filepath.Base(file.Name()), filepath.Ext(file.Name()))
 		fileName := strings.ToLower(structName)
-		generated, err := gojson.Generate(file, gojson.ParseJson, structName, "response", nil, false, true)
+		generated, err := gojson.Generate(file, gojson.ParseJson, structName, "response", []string{"json"}, false, true)
 		if err != nil {
 			return err
 		}

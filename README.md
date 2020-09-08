@@ -7,5 +7,14 @@ For documentation about the API, refer to the [LightStep Learning Portal](https:
 
 ## Usage
 ```
+import (
+	openapi "github.com/go-openapi/runtime/client"
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/client"
+)
+
+...
+
 api := client.New(client.Config{AuthInfo: openapi.APIKeyAuth("Authorization", "header", apikey)})
+
+...
 ```

@@ -3,32 +3,32 @@ package response
 type PatchStream struct {
 	Data struct {
 		Attributes struct {
-			Created_by              string ``
-			Created_time            string ``
-			Data_last_received_time string ``
-			Name                    string ``
-			Query                   string ``
-		} ``
-		ID    string ``
+			Created_by              string `json:"created-by"`
+			Created_time            string `json:"created-time"`
+			Data_last_received_time string `json:"data-last-received-time"`
+			Name                    string `json:"name"`
+			Query                   string `json:"query"`
+		} `json:"attributes"`
+		ID    string `json:"id"`
 		Links struct {
-			Self   string ``
-			UI     string ``
-			UI_p90 string ``
-			UI_p95 string ``
-			UI_p99 string ``
-		} ``
+			Self   string `json:"self"`
+			UI     string `json:"ui"`
+			UI_p90 string `json:"ui-p90"`
+			UI_p95 string `json:"ui-p95"`
+			UI_p99 string `json:"ui-p99"`
+		} `json:"links"`
 		Relationships struct {
 			Conditions struct {
 				Links struct {
-					Related string ``
-				} ``
-			} ``
+					Related string `json:"related"`
+				} `json:"links"`
+			} `json:"conditions"`
 			Project struct {
 				Links struct {
-					Related string ``
-				} ``
-			} ``
-		} ``
-		Type string ``
-	} ``
+					Related string `json:"related"`
+				} `json:"links"`
+			} `json:"project"`
+		} `json:"relationships"`
+		Type string `json:"type"`
+	} `json:"data"`
 }
