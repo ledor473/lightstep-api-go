@@ -7,9 +7,12 @@ package conditions
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // GetConditionReader is a Reader for the GetCondition structure.
@@ -60,13 +63,23 @@ func NewGetConditionOK() *GetConditionOK {
 JSON-formatted data about the given condition
 */
 type GetConditionOK struct {
+	Payload response.GetCondition
 }
 
 func (o *GetConditionOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions/{condition-id}][%d] getConditionOK ", 200)
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/conditions/{condition-id}][%d] getConditionOK  %+v", 200, o.Payload)
+}
+
+func (o *GetConditionOK) GetPayload() response.GetCondition {
+	return o.Payload
 }
 
 func (o *GetConditionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

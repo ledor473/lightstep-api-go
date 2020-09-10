@@ -7,9 +7,12 @@ package workflow_links
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // GetWorkflowLinkReader is a Reader for the GetWorkflowLink structure.
@@ -54,13 +57,23 @@ func NewGetWorkflowLinkOK() *GetWorkflowLinkOK {
 JSON-formatted metadata about the workflow link
 */
 type GetWorkflowLinkOK struct {
+	Payload response.GetWorkflowLink
 }
 
 func (o *GetWorkflowLinkOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/wf_links/{link-id}][%d] getWorkflowLinkOK ", 200)
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/wf_links/{link-id}][%d] getWorkflowLinkOK  %+v", 200, o.Payload)
+}
+
+func (o *GetWorkflowLinkOK) GetPayload() response.GetWorkflowLink {
+	return o.Payload
 }
 
 func (o *GetWorkflowLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

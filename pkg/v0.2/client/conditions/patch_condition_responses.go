@@ -7,9 +7,12 @@ package conditions
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // PatchConditionReader is a Reader for the PatchCondition structure.
@@ -66,13 +69,23 @@ func NewPatchConditionOK() *PatchConditionOK {
 The condition was updated successfully
 */
 type PatchConditionOK struct {
+	Payload response.PatchCondition
 }
 
 func (o *PatchConditionOK) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionOK ", 200)
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/conditions/{condition-id}][%d] patchConditionOK  %+v", 200, o.Payload)
+}
+
+func (o *PatchConditionOK) GetPayload() response.PatchCondition {
+	return o.Payload
 }
 
 func (o *PatchConditionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

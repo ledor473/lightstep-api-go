@@ -7,9 +7,12 @@ package dashboards
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // ListDashboardsReader is a Reader for the ListDashboards structure.
@@ -54,13 +57,23 @@ func NewListDashboardsOK() *ListDashboardsOK {
 JSON-formatted metadata about all dashboards in the project
 */
 type ListDashboardsOK struct {
+	Payload response.ListDashboards
 }
 
 func (o *ListDashboardsOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/dashboards][%d] listDashboardsOK ", 200)
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/dashboards][%d] listDashboardsOK  %+v", 200, o.Payload)
+}
+
+func (o *ListDashboardsOK) GetPayload() response.ListDashboards {
+	return o.Payload
 }
 
 func (o *ListDashboardsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

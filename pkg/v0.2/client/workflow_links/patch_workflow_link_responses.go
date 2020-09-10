@@ -7,9 +7,12 @@ package workflow_links
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // PatchWorkflowLinkReader is a Reader for the PatchWorkflowLink structure.
@@ -66,13 +69,23 @@ func NewPatchWorkflowLinkOK() *PatchWorkflowLinkOK {
 The workflow link was updated successfully
 */
 type PatchWorkflowLinkOK struct {
+	Payload response.PatchWorkflowLink
 }
 
 func (o *PatchWorkflowLinkOK) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkOK ", 200)
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/wf_links/{link-id}][%d] patchWorkflowLinkOK  %+v", 200, o.Payload)
+}
+
+func (o *PatchWorkflowLinkOK) GetPayload() response.PatchWorkflowLink {
+	return o.Payload
 }
 
 func (o *PatchWorkflowLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

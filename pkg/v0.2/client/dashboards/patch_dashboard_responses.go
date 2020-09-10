@@ -7,9 +7,12 @@ package dashboards
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // PatchDashboardReader is a Reader for the PatchDashboard structure.
@@ -66,13 +69,23 @@ func NewPatchDashboardOK() *PatchDashboardOK {
 The dashboard was updated successfully
 */
 type PatchDashboardOK struct {
+	Payload response.PatchDashboard
 }
 
 func (o *PatchDashboardOK) Error() string {
-	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardOK ", 200)
+	return fmt.Sprintf("[PATCH /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] patchDashboardOK  %+v", 200, o.Payload)
+}
+
+func (o *PatchDashboardOK) GetPayload() response.PatchDashboard {
+	return o.Payload
 }
 
 func (o *PatchDashboardOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

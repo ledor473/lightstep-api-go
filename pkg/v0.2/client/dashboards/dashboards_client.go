@@ -99,7 +99,7 @@ func (a *Client) DeleteDashboard(ctx context.Context, params *DeleteDashboardPar
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "deleteDashboard",
 		Method:             "DELETE",
-		PathPattern:        "/{organization}/projects/{project}/dashboard/{dashboard-id}",
+		PathPattern:        "/{organization}/projects/{project}/dashboards/{dashboard-id}",
 		ProducesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},

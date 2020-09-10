@@ -7,9 +7,12 @@ package services
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // ListServicesReader is a Reader for the ListServices structure.
@@ -60,13 +63,23 @@ func NewListServicesOK() *ListServicesOK {
 JSON-formatted metadata about all services reporting in the project
 */
 type ListServicesOK struct {
+	Payload response.ListServices
 }
 
 func (o *ListServicesOK) Error() string {
-	return fmt.Sprintf("[GET /{organization}/projects/{project}/directory/services][%d] listServicesOK ", 200)
+	return fmt.Sprintf("[GET /{organization}/projects/{project}/directory/services][%d] listServicesOK  %+v", 200, o.Payload)
+}
+
+func (o *ListServicesOK) GetPayload() response.ListServices {
+	return o.Payload
 }
 
 func (o *ListServicesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

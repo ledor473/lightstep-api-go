@@ -7,9 +7,12 @@ package conditions
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // PostConditionReader is a Reader for the PostCondition structure.
@@ -54,13 +57,23 @@ func NewPostConditionOK() *PostConditionOK {
 The condition was created successfully
 */
 type PostConditionOK struct {
+	Payload response.PostCondition
 }
 
 func (o *PostConditionOK) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/conditions][%d] postConditionOK ", 200)
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/conditions][%d] postConditionOK  %+v", 200, o.Payload)
+}
+
+func (o *PostConditionOK) GetPayload() response.PostCondition {
+	return o.Payload
 }
 
 func (o *PostConditionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

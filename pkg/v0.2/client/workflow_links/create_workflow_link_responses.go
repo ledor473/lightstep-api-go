@@ -7,9 +7,12 @@ package workflow_links
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/ledor473/lightstep-api-go/pkg/v0.2/response"
 )
 
 // CreateWorkflowLinkReader is a Reader for the CreateWorkflowLink structure.
@@ -66,13 +69,23 @@ func NewCreateWorkflowLinkOK() *CreateWorkflowLinkOK {
 The workflow link was created successfully
 */
 type CreateWorkflowLinkOK struct {
+	Payload response.CreateWorkflowLink
 }
 
 func (o *CreateWorkflowLinkOK) Error() string {
-	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkOK ", 200)
+	return fmt.Sprintf("[POST /{organization}/projects/{project}/wf_links][%d] createWorkflowLinkOK  %+v", 200, o.Payload)
+}
+
+func (o *CreateWorkflowLinkOK) GetPayload() response.CreateWorkflowLink {
+	return o.Payload
 }
 
 func (o *CreateWorkflowLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

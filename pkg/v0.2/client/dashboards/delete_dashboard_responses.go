@@ -63,7 +63,7 @@ type DeleteDashboardNoContent struct {
 }
 
 func (o *DeleteDashboardNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardNoContent ", 204)
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] deleteDashboardNoContent ", 204)
 }
 
 func (o *DeleteDashboardNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -84,7 +84,7 @@ type DeleteDashboardUnauthorized struct {
 }
 
 func (o *DeleteDashboardUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardUnauthorized ", 401)
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] deleteDashboardUnauthorized ", 401)
 }
 
 func (o *DeleteDashboardUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -105,7 +105,7 @@ type DeleteDashboardNotFound struct {
 }
 
 func (o *DeleteDashboardNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardNotFound ", 404)
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] deleteDashboardNotFound ", 404)
 }
 
 func (o *DeleteDashboardNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -126,7 +126,7 @@ type DeleteDashboardInternalServerError struct {
 }
 
 func (o *DeleteDashboardInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboard/{dashboard-id}][%d] deleteDashboardInternalServerError ", 500)
+	return fmt.Sprintf("[DELETE /{organization}/projects/{project}/dashboards/{dashboard-id}][%d] deleteDashboardInternalServerError ", 500)
 }
 
 func (o *DeleteDashboardInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
