@@ -18,6 +18,6 @@ go run transformer/transformer.go basic-response -i temp/fix-content-type.json -
 swagger generate client -f temp/basic-resp.json --target temp -A lightstep-api --template-dir templates/
 go run generator/generator.go json-response --apikey $APIKEY -o temp/json --org $ORGANIZATION -p $PROJECT
 go run generator/generator.go struct-response -i temp/json -o ../pkg/v0.2/response
-go run transformer/transformer.go full-response -i temp/fix-content-type.json -o temp/full-resp.json
+go run transformer/transformer.go full-response -i temp/fix-content-type.json -o temp/full-resp.json  -p ../pkg/v0.2/response/
 swagger generate client -f temp/full-resp.json --target ../pkg/v0.2/ -A lightstep-api --template-dir templates/
 ```
