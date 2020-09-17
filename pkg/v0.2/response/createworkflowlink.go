@@ -3,12 +3,10 @@ package response
 type CreateWorkflowLink struct {
 	Data struct {
 		Attributes struct {
-			LastEditedMicros int64  `json:"last_edited_micros"`
-			Name             string `json:"name"`
-			Rules            struct {
-				Service []string `json:"$service"`
-			} `json:"rules"`
-			URL string `json:"url"`
+			LastEditedMicros int64               `json:"last_edited_micros"`
+			Name             string              `json:"name"`
+			Rules            map[string][]string `json:"rules"`
+			URL              string              `json:"url"`
 		} `json:"attributes"`
 		ID    string `json:"id"`
 		Links struct {

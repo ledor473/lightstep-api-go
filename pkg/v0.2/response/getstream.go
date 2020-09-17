@@ -3,11 +3,12 @@ package response
 type GetStream struct {
 	Data struct {
 		Attributes struct {
-			Created_by              string `json:"created-by"`
-			Created_time            string `json:"created-time"`
-			Data_last_received_time string `json:"data-last-received-time"`
-			Name                    string `json:"name"`
-			Query                   string `json:"query"`
+			Created_by              string                 `json:"created-by"`
+			Created_time            string                 `json:"created-time"`
+			CustomData              map[string]interface{} `json:"custom-data,omitempty"`
+			Data_last_received_time string                 `json:"data-last-received-time"`
+			Name                    string                 `json:"name"`
+			Query                   string                 `json:"query"`
 		} `json:"attributes"`
 		ID    string `json:"id"`
 		Links struct {
