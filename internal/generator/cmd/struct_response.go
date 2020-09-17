@@ -16,8 +16,6 @@ var (
 		Use:  "struct-response",
 		RunE: structResponse,
 	}
-
-	input string
 )
 
 func init() {

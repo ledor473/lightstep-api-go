@@ -9,6 +9,7 @@ import (
 )
 
 var (
+	input   string
 	output  string
 	rootCmd = &cobra.Command{
 		Use: "generator",
