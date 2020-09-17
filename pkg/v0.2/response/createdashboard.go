@@ -18,11 +18,19 @@ type CreateDashboard struct {
 				} `json:"links"`
 				Relationships struct {
 					Conditions struct {
+						Data []struct {
+							ID   string `json:"id"`
+							Type string `json:"type"`
+						} `json:"data"`
 						Links struct {
 							Related string `json:"related"`
 						} `json:"links"`
 					} `json:"conditions"`
 					Project struct {
+						Data struct {
+							ID   string `json:"id"`
+							Type string `json:"type"`
+						} `json:"data"`
 						Links struct {
 							Related string `json:"related"`
 						} `json:"links"`
@@ -38,6 +46,10 @@ type CreateDashboard struct {
 		} `json:"links"`
 		Relationships struct {
 			Project struct {
+				Data struct {
+					ID   string `json:"id"`
+					Type string `json:"type"`
+				} `json:"data"`
 				Links struct {
 					Related string `json:"related"`
 				} `json:"links"`
